@@ -15,10 +15,13 @@ export const Navbar = () => {
     color: "brand.text",
     fontWeight: "medium",
     cursor: "pointer",
+    position: "relative" as const,
+    zIndex: 2, // Asegurar que los enlaces estén por encima
   };
 
-  // He movido los estilos del hover a una constante para no repetir código
+  // Corregido: z-index negativo para que no interfiera con los clicks
   const navLinkHoverEffect = {
+    position: "relative" as const,
     _after: {
       content: '""',
       position: 'absolute',
@@ -30,6 +33,7 @@ export const Navbar = () => {
       backgroundColor: 'brand.primary',
       transformOrigin: 'bottom right',
       transition: 'transform 0.25s ease-out',
+      zIndex: -1, // Asegurar que esté detrás del texto
     },
     _hover: {
       _after: {
@@ -49,7 +53,7 @@ export const Navbar = () => {
       bg="brand.background"
       position="fixed"
       width="100%"
-      zIndex={10}
+      zIndex={1000} // Aumentado para asegurar que esté por encima de otros elementos
       boxShadow="0px 4px 20px -7px #04a56b"
       right="0"
       left="0"
@@ -70,9 +74,10 @@ export const Navbar = () => {
             background: 'linear-gradient(90deg, transparent, #04a56b80, #05c280, #04a56b80, transparent)',
             backgroundSize: '200% 100%',
             borderRadius: '2px',
-            zIndex: -1,
+            zIndex: -2, // Más atrás para no interferir
             animation: 'glowing-underline 6s ease-in-out infinite',
             filter: 'blur(1px)',
+            pointerEvents: 'none', // Crucial: evita que interfiera con clicks
           },
           '&::after': {
             content: '""',
@@ -84,9 +89,10 @@ export const Navbar = () => {
             background: 'linear-gradient(90deg, transparent, #04a56b, #05c280, #02d68f, #04a56b, transparent)',
             backgroundSize: '200% 100%',
             borderRadius: '1px',
-            zIndex: -1,
+            zIndex: -2, // Más atrás para no interferir
             animation: 'glowing-underline 6s ease-in-out infinite reverse',
             boxShadow: '0 0 8px #04a56b40, 0 0 16px #04a56b20',
+            pointerEvents: 'none', // Crucial: evita que interfiera con clicks
           },
 
           // OVERLINE SUPERIOR (nuevo)
@@ -100,10 +106,11 @@ export const Navbar = () => {
             background: 'linear-gradient(90deg, transparent, #04a56b80, #05c280, #04a56b80, transparent)',
             backgroundSize: '200% 100%',
             borderRadius: '2px',
-            zIndex: -1,
+            zIndex: -2, // Más atrás para no interferir
             animation: 'glowing-overline 6s ease-in-out infinite',
             animationDelay: '3s', // Desfase para que vayan alternadas
             filter: 'blur(1px)',
+            pointerEvents: 'none', // Crucial: evita que interfiera con clicks
           },
           '& > span::after': {
             content: '""',
@@ -115,10 +122,11 @@ export const Navbar = () => {
             background: 'linear-gradient(90deg, transparent, #04a56b, #05c280, #02d68f, #04a56b, transparent)',
             backgroundSize: '200% 100%',
             borderRadius: '1px',
-            zIndex: -1,
+            zIndex: -2, // Más atrás para no interferir
             animation: 'glowing-overline 6s ease-in-out infinite reverse',
             animationDelay: '3s', // Mismo desfase
             boxShadow: '0 0 8px #04a56b40, 0 0 16px #04a56b20',
+            pointerEvents: 'none', // Crucial: evita que interfiera con clicks
           },
 
           '@keyframes glowing-underline': {
@@ -152,7 +160,7 @@ export const Navbar = () => {
           fontWeight="bold"
           color="brand.text"
           position="relative"
-          zIndex={1}
+          zIndex={2} 
           display="inline-block"
           sx={spaceGroteskStyle} // Aplicamos Space Grotesk
         >
@@ -161,31 +169,66 @@ export const Navbar = () => {
       </Box>
 
       <HStack spacing={8}>
-        <Box as="span" position="relative" sx={navLinkHoverEffect} >
-          <Link to="sobre-mi" smooth={true} duration={500} style={linkStyles} containerId="main-content" offset={-80}>
+        <Box as="span" position="relative" sx={navLinkHoverEffect}>
+          <Link 
+            to="sobre-mi" 
+            smooth={true} 
+            duration={500} 
+            style={linkStyles} 
+            containerId="main-content" 
+            offset={-80}
+          >
             Sobre mi
           </Link>
         </Box>
-        <Box as="span" position="relative" sx={navLinkHoverEffect} >
-          <Link to="tecnologias" smooth={true} duration={500} style={linkStyles} containerId="main-content" offset={-80}>
+        <Box as="span" position="relative" sx={navLinkHoverEffect}>
+          <Link 
+            to="tecnologias" 
+            smooth={true} 
+            duration={500} 
+            style={linkStyles} 
+            containerId="main-content" 
+            offset={-80}
+          >
             Tecnologías
           </Link>
         </Box>
-        <Box as="span" position="relative" sx={navLinkHoverEffect} >
-          <Link to="proyectos" smooth={true} duration={500} style={linkStyles} containerId="main-content" offset={-80}>
+        <Box as="span" position="relative" sx={navLinkHoverEffect}>
+          <Link 
+            to="proyectos" 
+            smooth={true} 
+            duration={500} 
+            style={linkStyles} 
+            containerId="main-content" 
+            offset={-80}
+          >
             Proyectos
           </Link>
         </Box>
 
-        {/* --- NUEVO ENLACE A CERTIFICACIONES --- */}
-        <Box as="span" position="relative" sx={navLinkHoverEffect} >
-          <Link to="certificaciones" smooth={true} duration={500} style={linkStyles} containerId="main-content" offset={-80}>
+        {/* --- ENLACE A CERTIFICACIONES --- */}
+        <Box as="span" position="relative" sx={navLinkHoverEffect}>
+          <Link 
+            to="certificaciones" 
+            smooth={true} 
+            duration={500} 
+            style={linkStyles} 
+            containerId="main-content" 
+            offset={-80}
+          >
             Certificaciones
           </Link>
         </Box>
 
-        <Box as="span" position="relative" sx={navLinkHoverEffect} >
-          <Link to="contacto" smooth={true} duration={500} style={linkStyles} containerId="main-content" offset={-80}>
+        <Box as="span" position="relative" sx={navLinkHoverEffect}>
+          <Link 
+            to="contacto" 
+            smooth={true} 
+            duration={500} 
+            style={linkStyles} 
+            containerId="main-content" 
+            offset={-80}
+          >
             Contacto
           </Link>
         </Box>
