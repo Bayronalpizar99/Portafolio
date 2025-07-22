@@ -58,7 +58,7 @@ export const Certificaciones = () => {
             fontWeight: '700',
           }}
         >
-          Mis Certificaciones
+          My Certifications
         </Heading>
 
         {/* Cambiamos SimpleGrid por VStack para una sola columna */}

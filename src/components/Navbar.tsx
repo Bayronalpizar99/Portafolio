@@ -202,7 +202,7 @@ export const Navbar = () => {
             containerId="main-content" 
             offset={-80}
           >
-            Sobre mi
+            About me
           </Link>
         </Box>
         <Box 
@@ -221,7 +221,7 @@ export const Navbar = () => {
             containerId="main-content" 
             offset={-80}
           >
-            Tecnologías
+            Technologies
           </Link>
         </Box>
         <Box 
@@ -240,7 +240,7 @@ export const Navbar = () => {
             containerId="main-content" 
             offset={-80}
           >
-            Proyectos
+            Projects
           </Link>
         </Box>
 
@@ -261,7 +261,7 @@ export const Navbar = () => {
             containerId="main-content" 
             offset={-80}
           >
-            Certificaciones
+            Certifications
           </Link>
         </Box>
 
@@ -281,7 +281,7 @@ export const Navbar = () => {
             containerId="main-content" 
             offset={-80}
           >
-            Contacto
+            Contact
           </Link>
         </Box>
       </HStack>

@@ -1,33 +1,45 @@
+// src/components/SobreMi.tsx
 import { Box, Heading, VStack, Text, Image, SimpleGrid } from "@chakra-ui/react";
 import perfilImg from '../assets/perfil.jpeg';
-
-// Nuevos iconos para las competencias clave
 import { FaUsers, FaLightbulb, FaCode, FaSyncAlt } from "react-icons/fa";
+import { useInView } from 'react-intersection-observer';
 
 export const SobreMi = () => {
-  // Array para las nuevas competencias clave
-  const competencias = [
+  const competencies = [
     {
       icon: <FaUsers size="2.5em" />,
-      title: "Trabajo en Equipo",
-      description: "Colaboro de forma efectiva en equipos multidisciplinarios usando metodologías ágiles."
+      title: "Teamwork",
+      description: "I collaborate effectively in multidisciplinary teams using agile methodologies."
     },
     {
       icon: <FaLightbulb size="2.5em" />,
-      title: "Resolución de Problemas",
-      description: "Analizo y descompongo problemas complejos para encontrar soluciones eficientes y escalables."
+      title: "Problem Solving",
+      description: "I analyze and break down complex problems to find efficient and scalable solutions."
     },
     {
       icon: <FaCode size="2.5em" />,
-      title: "Código Limpio",
-      description: "Escribo código legible, mantenible y bien documentado siguiendo las mejores prácticas."
+      title: "Clean Code",
+      description: "I implement readable, maintainable, and well-documented code following best practices."
     },
     {
       icon: <FaSyncAlt size="2.5em" />,
-      title: "Aprendizaje Continuo",
-      description: "Soy autodidacta y me mantengo siempre actualizado con las nuevas tecnologías del sector."
+      title: "Continuous Learning",
+      description: "I am a self-learner and I constantly keep myself updated with the new technologies in the industry."
     }
   ];
+
+  // ✅ CAMBIO: Se elimina 'triggerOnce: true' de todos los hooks para que la animación se repita.
+  const { ref: headingRef, inView: headingInView } = useInView({ threshold: 0.5 });
+  const { ref: imageRef, inView: imageInView } = useInView({ threshold: 0.5 });
+  const { ref: textRef, inView: textInView } = useInView({ threshold: 0.4 });
+  const { ref: competenciesRef, inView: competenciesInView } = useInView({ threshold: 0.2 });
+
+  // Función para crear estilos de animación reutilizables
+  const createFadeInStyle = (inView: boolean, delay: string = '0s') => ({
+    opacity: inView ? 1 : 0,
+    transform: inView ? 'translateY(0)' : 'translateY(20px)',
+    transition: `opacity 0.6s ease-out ${delay}, transform 0.6s ease-out ${delay}`
+  });
 
   return (
     <Box
@@ -45,19 +57,22 @@ export const SobreMi = () => {
     >
       <VStack spacing={12} maxWidth="900px" textAlign="center">
         <Heading
+          ref={headingRef}
           as="h2"
           size="2xl"
           color="brand.text"
           sx={{ fontFamily: '"Space Grotesk", system-ui, sans-serif', fontWeight: '700' }}
+          style={createFadeInStyle(headingInView)}
         >
-          Sobre Mí
+          About Me
         </Heading>
 
-        {/* Foto de Perfil */}
         <Box
+          ref={imageRef}
           position="relative"
           display="inline-block"
           sx={{
+            ...createFadeInStyle(imageInView, '0.2s'),
             '&::before': {
               content: '""', position: 'absolute', top: '-6px', left: '-6px', right: '-6px', bottom: '-6px',
               borderRadius: '50%', background: 'linear-gradient(135deg, rgba(4,165,107,0.2), rgba(2,214,143,0.2))',
@@ -73,23 +88,22 @@ export const SobreMi = () => {
           }}
         >
           <Image
-            src={perfilImg} alt="Foto de perfil" boxSize="200px" borderRadius="full" objectFit="cover"
+            src={perfilImg} alt="Profile picture" boxSize="200px" borderRadius="full" objectFit="cover"
             position="relative" zIndex={1} border="4px solid" borderColor="brand.background"
             boxShadow="0 0 12px rgba(4, 165, 107, 0.2)"
           />
         </Box>
 
-        {/* Descripción */}
         <Text
+          ref={textRef}
           fontSize="lg" lineHeight="1.8" color="gray.300" textAlign="center" maxWidth="600px"
           sx={{ fontFamily: '"Inter", system-ui, sans-serif' }}
+          style={createFadeInStyle(textInView, '0.4s')}
         >
-          Soy un desarrollador apasionado por crear experiencias digitales excepcionales.
-          Me especializo en el desarrollo full stack, combinando creatividad y tecnología
-          para construir aplicaciones web modernas y eficientes.
+          I specialize in full-stack development, combining creativity and technology to build modern and efficient web applications. I also have extensive experience working with LLMs to integrate advanced natural language processing capabilities into digital solutions.
         </Text>
 
-        <VStack spacing={8} width="100%" pt={8}>
+        <VStack ref={competenciesRef} spacing={8} width="100%" pt={8}>
           <Heading
             as="h2"
             size="2xl"
@@ -98,33 +112,29 @@ export const SobreMi = () => {
               fontFamily: '"Space Grotesk", system-ui, sans-serif',
               fontWeight: '700',
             }}
+            style={createFadeInStyle(competenciesInView)}
           >
-            Competencias Clave
+            Core Competencies
           </Heading>
           
           <SimpleGrid columns={[1, 2, 2]} spacing={6} width="100%">
-            {competencias.map((comp, index) => (
+            {competencies.map((comp, index) => (
               <VStack
                 key={index}
                 spacing={4}
                 p={6}
-                // --- COLOR DE FONDO RESTAURADO ---
                 bg="rgba(67, 136, 162, 0.05)"
                 border="1px solid"
                 borderColor="rgba(67, 136, 162, 0.2)"
                 borderRadius="xl"
-                transition="all 0.3s ease"
+                style={createFadeInStyle(competenciesInView, `${0.2 + index * 0.15}s`)}
                 _hover={{
                   transform: 'translateY(-5px)',
-                  // El fondo del hover sí puede ser un poco más verde
                   bg: 'rgba(4, 165, 107, 0.1)',
-                  // Borde verde al pasar el mouse
                   borderColor: 'brand.primary',
-                  // Sombra verde al pasar el mouse
                   boxShadow: '0 7px 20px rgba(4, 165, 107, 0.2)',
                 }}
               >
-                {/* Icono se mantiene en color verde */}
                 <Box color="brand.primary">{comp.icon}</Box>
                 <Heading as="h4" size="md" color="brand.text">{comp.title}</Heading>
                 <Text color="gray.300" fontSize="sm" textAlign="center">{comp.description}</Text>
