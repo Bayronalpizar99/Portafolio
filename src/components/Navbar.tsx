@@ -43,6 +43,11 @@ export const Navbar = () => {
     },
   };
 
+  // Función para crear animación de entrada escalonada
+  const createEntryAnimation = (delay: number) => ({
+    animation: `slideInFromTop 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) ${delay}s both`,
+  });
+
   return (
     <Flex
       as="nav"
@@ -152,6 +157,18 @@ export const Navbar = () => {
               backgroundPosition: '-200% 0%',
             },
           },
+
+          // Animación de entrada para los enlaces del navbar
+          '@keyframes slideInFromTop': {
+            '0%': {
+              opacity: 0,
+              transform: 'translateY(-30px) scale(0.8)',
+            },
+            '100%': {
+              opacity: 1,
+              transform: 'translateY(0) scale(1)',
+            },
+          },
         }}
       >
         <Text
@@ -160,7 +177,7 @@ export const Navbar = () => {
           fontWeight="bold"
           color="brand.text"
           position="relative"
-          zIndex={2} 
+          zIndex={2} // Asegurar que esté por encima de las animaciones
           display="inline-block"
           sx={spaceGroteskStyle} // Aplicamos Space Grotesk
         >
@@ -169,7 +186,14 @@ export const Navbar = () => {
       </Box>
 
       <HStack spacing={8}>
-        <Box as="span" position="relative" sx={navLinkHoverEffect}>
+        <Box 
+          as="span" 
+          position="relative" 
+          sx={{
+            ...navLinkHoverEffect,
+            ...createEntryAnimation(0.2),
+          }}
+        >
           <Link 
             to="sobre-mi" 
             smooth={true} 
@@ -181,7 +205,14 @@ export const Navbar = () => {
             Sobre mi
           </Link>
         </Box>
-        <Box as="span" position="relative" sx={navLinkHoverEffect}>
+        <Box 
+          as="span" 
+          position="relative" 
+          sx={{
+            ...navLinkHoverEffect,
+            ...createEntryAnimation(0.4),
+          }}
+        >
           <Link 
             to="tecnologias" 
             smooth={true} 
@@ -193,7 +224,14 @@ export const Navbar = () => {
             Tecnologías
           </Link>
         </Box>
-        <Box as="span" position="relative" sx={navLinkHoverEffect}>
+        <Box 
+          as="span" 
+          position="relative" 
+          sx={{
+            ...navLinkHoverEffect,
+            ...createEntryAnimation(0.6),
+          }}
+        >
           <Link 
             to="proyectos" 
             smooth={true} 
@@ -207,7 +245,14 @@ export const Navbar = () => {
         </Box>
 
         {/* --- ENLACE A CERTIFICACIONES --- */}
-        <Box as="span" position="relative" sx={navLinkHoverEffect}>
+        <Box 
+          as="span" 
+          position="relative" 
+          sx={{
+            ...navLinkHoverEffect,
+            ...createEntryAnimation(0.8),
+          }}
+        >
           <Link 
             to="certificaciones" 
             smooth={true} 
@@ -220,7 +265,14 @@ export const Navbar = () => {
           </Link>
         </Box>
 
-        <Box as="span" position="relative" sx={navLinkHoverEffect}>
+        <Box 
+          as="span" 
+          position="relative" 
+          sx={{
+            ...navLinkHoverEffect,
+            ...createEntryAnimation(1.0),
+          }}
+        >
           <Link 
             to="contacto" 
             smooth={true} 

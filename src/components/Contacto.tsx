@@ -1,23 +1,16 @@
 import {
-  Box, Heading, VStack, Text, Input, Textarea, Button, HStack, Link, Icon, useToast, 
+  Box, Heading, VStack, Text, Input, Textarea, Button, HStack, Icon, useToast, 
   FormControl, FormLabel, SimpleGrid, Divider, useClipboard, Container
 } from "@chakra-ui/react";
 import { keyframes } from "@emotion/react";
 import { FaEnvelope, FaWhatsapp, FaPaperPlane } from "react-icons/fa";
 import { FiCopy, FiMail, FiMessageCircle } from "react-icons/fi";
-import React, { useRef, useState } from 'react';
-import emailjs from '@emailjs/browser';
+import React, { useState } from 'react';
 
 // Animaciones personalizadas
-const gradient = keyframes`
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-`;
-
-const float = keyframes`
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+const fadeIn = keyframes`
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 `;
 
 const pulse = keyframes`
@@ -26,55 +19,75 @@ const pulse = keyframes`
   100% { box-shadow: 0 0 0 0 rgba(67, 136, 162, 0); }
 `;
 
-const fadeIn = keyframes`
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-`;
-
 export const Contacto = () => {
-  const form = useRef<HTMLFormElement>(null);
   const toast = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
 
   const { onCopy: onCopyEmail, hasCopied: hasCopiedEmail } = useClipboard("bayalpiizar777@gmail.com");
   const { onCopy: onCopyPhone, hasCopied: hasCopiedPhone } = useClipboard("85825590");
 
-  const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  // ✅ ESTA ES LA FUNCIÓN CLAVE, Y YA ESTÁ CORRECTA
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-       // --- AÑADE ESTAS LÍNEAS PARA DEPURAR ---
-    console.log("Service ID que se está usando:", import.meta.env.VITE_EMAILJS_SERVICE_ID);
-    console.log("Template ID que se está usando:", import.meta.env.VITE_EMAILJS_TEMPLATE_ID);
-    console.log("Public Key que se está usando:", import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
-    // -------------------------------------------
+    try {
+      // La URL del backend se obtiene de una variable de entorno, ideal para producción
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+      
+      const response = await fetch(`${API_URL}/api/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    if (form.current) {
-      emailjs.sendForm(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        form.current,
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      ).then(() => {
-        toast({ 
-          title: "¡Mensaje Enviado! 🚀", 
-          description: "Gracias por contactarme, te responderé pronto.", 
-          status: "success", 
-          duration: 5000, 
+      const data = await response.json();
+
+      if (data.success) {
+        toast({
+          title: "¡Mensaje Enviado! 🚀",
+          description: data.message,
+          status: "success",
+          duration: 6000,
           isClosable: true,
           position: "top"
         });
-        form.current?.reset();
-      }, () => {
-        toast({ 
-          title: "Error al enviar 😕", 
-          description: "Hubo un problema. Inténtalo de nuevo.", 
-          status: "error", 
-          duration: 5000, 
-          isClosable: true,
-          position: "top"
-        });
-      }).finally(() => setIsSubmitting(false));
+        
+        // Limpiar el formulario
+        setFormData({ name: '', email: '', message: '' });
+        
+      } else {
+        throw new Error(data.error || 'Error desconocido');
+      }
+
+    } catch (error: any) {
+      console.error('Error enviando mensaje:', error);
+      
+      toast({
+        title: "Error al enviar 😕",
+        description: error.message || "Hubo un problema. Inténtalo de nuevo.",
+        status: "error",
+        duration: 6000,
+        isClosable: true,
+        position: "top"
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -89,7 +102,6 @@ export const Contacto = () => {
       alignItems="center" 
       px={8}
     >
-
       <Container maxW="container.lg">
         <VStack 
           spacing={12} 
@@ -99,7 +111,6 @@ export const Contacto = () => {
           animation={`${fadeIn} 1s ease-out`}
         >
           
-          {/* Header con efecto de texto gradiente */}
           <VStack textAlign="center" spacing={6}>
             <Heading 
               as="h2" 
@@ -120,7 +131,6 @@ export const Contacto = () => {
             </Text>
           </VStack>
 
-          {/* Panel de Contacto Unificado */}
           <VStack 
             bg="rgba(0,0,0,0.2)" 
             p={8} 
@@ -129,10 +139,8 @@ export const Contacto = () => {
             width="100%"
           >
             
-            {/* Métodos de contacto mejorados */}
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6} width="100%">
               
-              {/* Email Card */}
               <Box
                 bg="rgba(67, 136, 162, 0.1)"
                 p={6}
@@ -176,7 +184,6 @@ export const Contacto = () => {
                 </VStack>
               </Box>
 
-              {/* WhatsApp Card */}
               <Box
                 bg="rgba(37, 211, 102, 0.1)"
                 p={6}
@@ -238,15 +245,17 @@ export const Contacto = () => {
               </Box>
             </Box>
 
-            {/* Formulario mejorado */}
-            <Box as="form" ref={form} onSubmit={sendEmail} width="100%">
+            {/* El atributo onSubmit llama a la función handleSubmit */}
+            <Box as="form" onSubmit={handleSubmit} width="100%">
               <VStack spacing={6}>
                 <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6} width="100%">
                   <FormControl isRequired>
                     <FormLabel color="gray.300" fontWeight="500">Tu Nombre</FormLabel>
                     <Input 
                       type="text" 
-                      name="from_name" 
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
                       placeholder="John Doe"
                       bg="rgba(255, 255, 255, 0.05)"
                       border="1px solid rgba(255, 255, 255, 0.1)"
@@ -267,7 +276,9 @@ export const Contacto = () => {
                     <FormLabel color="gray.300" fontWeight="500">Tu Correo</FormLabel>
                     <Input 
                       type="email" 
-                      name="from_email" 
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
                       placeholder="john.doe@example.com"
                       bg="rgba(255, 255, 255, 0.05)"
                       border="1px solid rgba(255, 255, 255, 0.1)"
@@ -288,7 +299,9 @@ export const Contacto = () => {
                 <FormControl isRequired>
                   <FormLabel color="gray.300" fontWeight="500">Tu Mensaje</FormLabel>
                   <Textarea 
-                    name="message" 
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
                     placeholder="¡Hola! Me gustaría colaborar contigo en..."
                     rows={5}
                     bg="rgba(255, 255, 255, 0.05)"
