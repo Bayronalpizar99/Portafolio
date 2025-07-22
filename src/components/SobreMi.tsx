@@ -100,7 +100,7 @@ export const SobreMi = () => {
           sx={{ fontFamily: '"Inter", system-ui, sans-serif' }}
           style={createFadeInStyle(textInView, '0.4s')}
         >
-          I specialize in full-stack development, combining creativity and technology to build modern and efficient web applications. I also have extensive experience working with LLMs to integrate advanced natural language processing capabilities into digital solutions.
+          Full-stack developer passionate about building innovative and high-performance web applications. I integrate AI-based tools into my workflow to speed up development and explore new ways to deliver smarter and more scalable solutions.
         </Text>
 
         <VStack ref={competenciesRef} spacing={8} width="100%" pt={8}>

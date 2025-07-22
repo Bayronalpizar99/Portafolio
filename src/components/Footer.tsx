@@ -1,23 +1,33 @@
 // src/components/Footer.tsx
 import { Box, Text, HStack, Link, Icon, VStack } from "@chakra-ui/react";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
+// ✅ 1. Importamos el hook para la animación
+import { useInView } from "react-intersection-observer";
 
 export const Footer = () => {
+  // ✅ 2. Hook para detectar cuando el footer está visible
+  const { ref, inView } = useInView({
+    triggerOnce: true, // La animación se ejecuta solo una vez
+    threshold: 0.1,
+  });
+
   return (
     <Box
+      ref={ref} // Asignamos la referencia al componente
       as="footer"
       py={8}
       px={8}
-      bg="rgba(1, 15, 24, 0.6)" // Mismo color del panel de contacto
+      bg="rgba(1, 15, 24, 0.6)"
       borderTop="1px solid rgba(255, 255, 255, 0.1)"
       backdropFilter="blur(10px)"
       color="gray.400"
+      // ✅ 3. Aplicamos la animación de aparición
+      opacity={inView ? 1 : 0}
+      transition="opacity 0.8s ease-in-out"
     >
       <VStack spacing={4} maxW="container.lg" mx="auto">
-        
-        {/* 1. Iconos de Redes Sociales */}
+        {/* Social Media Icons */}
         <HStack spacing={6}>
-          {/* --- ENLACE DE LINKEDIN ACTUALIZADO --- */}
           <Link href="https://www.linkedin.com/in/bayron-alpízar-quesada-21439a126" isExternal _hover={{ color: 'brand.primary' }}>
             <Icon as={FaLinkedin} boxSize={6} />
           </Link>
@@ -26,12 +36,12 @@ export const Footer = () => {
           </Link>
         </HStack>
 
-        {/* 2. Texto de Desarrollador */}
+        {/* ✅ 4. Texto traducido al inglés */}
         <Text>
-          Desarrollado por{" "}
-          <Link 
-            href="https://github.com/Bayronalpizar99" 
-            isExternal 
+          Developed by{" "}
+          <Link
+            href="https://github.com/Bayronalpizar99"
+            isExternal
             color="brand.primary"
             fontWeight="bold"
             _hover={{ textDecoration: 'underline' }}
@@ -40,9 +50,9 @@ export const Footer = () => {
           </Link>
         </Text>
 
-        {/* 3. Texto de Copyright */}
+        {/* Copyright Text */}
         <Text fontSize="sm">
-          &copy; {new Date().getFullYear()} Bayron AQ. Todos los derechos reservados.
+          &copy; {new Date().getFullYear()} Bayron AQ. All rights reserved.
         </Text>
 
       </VStack>
