@@ -1,5 +1,4 @@
 // src/components/ParticleBackground.tsx
-
 import { Box } from "@chakra-ui/react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import type { ISourceOptions } from "@tsparticles/engine";
@@ -28,25 +27,25 @@ export const ParticleBackground = () => {
       interactivity: {
         events: {
           onHover: {
-            enable: true, // ✅ ACTIVAMOS la interacción en hover
-            mode: "bubble", // ✅ Solo modo bubble, sin atracción
+            enable: true,
+            mode: "bubble",
           },
           onClick: {
-            enable: true, // ✅ ACTIVAMOS la interacción en click
-            mode: "push", // ✅ Agrega nuevas partículas al hacer click
+            enable: true,
+            mode: "push",
           },
         },
         modes: {
           bubble: {
             enable: true,
-            distance: 120, // ✅ Área de efecto del bubble
-            size: 2.5, // ✅ Tamaño máximo del efecto
+            distance: 120,
+            size: 2.5,
             duration: 2,
             opacity: 0.9,
           },
           push: {
             enable: true,
-            quantity: 4, // Cantidad de partículas que se agregan por click
+            quantity: 4,
           },
           repulse: {
             enable: true,
@@ -60,7 +59,7 @@ export const ParticleBackground = () => {
           value: "#04a56b",
         },
         links: {
-          enable: false, // Mantenemos los links desactivados para un efecto más limpio
+          enable: false,
         },
         move: {
           direction: "top",
@@ -69,9 +68,9 @@ export const ParticleBackground = () => {
             default: "out",
           },
           random: true,
-          speed: 0.7,
+  
+          speed: 1,
           straight: false,
-          // ✅ REMOVEMOS la atracción del movimiento general
         },
         number: {
           density: {
@@ -113,14 +112,11 @@ export const ParticleBackground = () => {
         w="100%"
         h="100%"
         zIndex="-1"
-        // ✅ CAMBIO CLAVE: Removemos pointerEvents="none" para permitir interacción
-        // pero usamos un z-index negativo para que no interfiera con otros elementos
       >
-        <Particles 
-          id="tsparticles" 
+        <Particles
+          id="tsparticles"
           options={particleOptions}
           style={{
-            // ✅ Aseguramos que las partículas estén detrás de todo
             position: 'absolute',
             top: 0,
             left: 0,

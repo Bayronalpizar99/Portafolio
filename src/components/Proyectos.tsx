@@ -1,4 +1,3 @@
-// src/components/Proyectos.tsx
 import { Box, Heading, VStack, SimpleGrid, Text, Tag, HStack, Link, Icon } from "@chakra-ui/react";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 import { useInView } from "react-intersection-observer";
@@ -69,8 +68,6 @@ const ProjectCard = ({ project, index }: { project: any, index: number }) => {
       overflow="hidden"
       opacity={inView ? 1 : 0}
       transform={inView ? 'translateY(0)' : 'translateY(30px)'}
-      // ✅ CAMBIO: La duración de la transición se ha reducido de 0.6s a 0.3s
-      // para que el efecto hover sea más rápido, manteniendo la animación de entrada.
       transition={`all 0.3s ease-in-out, opacity 0.6s ease-in-out ${index * 150}ms, transform 0.6s ease-in-out ${index * 150}ms`}
       _hover={{
         transform: 'translateY(-8px)',
@@ -83,7 +80,7 @@ const ProjectCard = ({ project, index }: { project: any, index: number }) => {
         bgImage={`url(${project.image})`}
         bgSize="cover"
         bgPosition="center"
-        // Hacemos que la imagen también tenga una transición suave
+        
         transition="transform 0.3s ease-in-out"
         _hover={{
             transform: 'scale(1.05)'

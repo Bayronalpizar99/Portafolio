@@ -7,10 +7,8 @@ import { keyframes } from "@emotion/react";
 import { FaEnvelope, FaWhatsapp, FaPaperPlane } from "react-icons/fa";
 import { FiCopy, FiMail, FiMessageCircle } from "react-icons/fi";
 import React, { useState } from 'react';
-// ✅ 1. Importamos el hook para las animaciones
 import { useInView } from "react-intersection-observer";
 
-// Animaciones que ya teníamos
 const pulse = keyframes`
   0% { box-shadow: 0 0 0 0 rgba(67, 136, 162, 0.7); }
   70% { box-shadow: 0 0 0 10px rgba(67, 136, 162, 0); }
@@ -53,7 +51,6 @@ export const Contacto = () => {
       const data = await response.json();
 
       if (data.success) {
-        // ✅ 2. Notificaciones traducidas al inglés
         toast({
           title: "Message Sent! 🚀",
           description: data.message,
@@ -85,7 +82,6 @@ export const Contacto = () => {
     }
   };
 
-  // ✅ 3. Hooks de InView para cada parte de la sección
   const { ref: sectionRef, inView: sectionInView } = useInView({ threshold: 0.1 });
   const createFadeInStyle = (inView: boolean, delay: string = '0s') => ({
     opacity: inView ? 1 : 0,
@@ -202,7 +198,29 @@ export const Contacto = () => {
                   <Textarea name="message" value={formData.message} onChange={handleInputChange} placeholder="Hello! I'd like to collaborate with you on..." rows={5} bg="rgba(255, 255, 255, 0.05)" border="1px solid rgba(255, 255, 255, 0.1)" borderRadius="xl" _hover={{ borderColor: "rgba(67, 136, 162, 0.5)" }} _focus={{ borderColor: "#4388a2", boxShadow: "0 0 0 1px #4388a2", bg: "rgba(255, 255, 255, 0.08)" }} color="white" _placeholder={{ color: "gray.500" }} resize="vertical" />
                 </FormControl>
                 
-                <Button type="submit" size="lg" width="100%" bgGradient="linear(45deg, #4388a2, #63b3ed)" color="white" isLoading={isSubmitting} loadingText="Sending..." rightIcon={<FaPaperPlane />} _hover={{ bgGradient: "linear(45deg, #3182ce, #4388a2)", transform: "translateY(-2px)", boxShadow: "0 20px 40px -10px rgba(67, 136, 162, 0.4)" }} _active={{ transform: "translateY(0px)" }} transition="all 0.3s ease" borderRadius="xl" fontWeight="600" fontSize="lg" py={6}>
+                {/* ✅ CAMBIO: Botón ajustado para ser más pequeño horizontalmente */}
+                <Button 
+                  type="submit" 
+                  size="lg"
+                  // Se elimina width="100%" y se añade padding horizontal (px) y se centra
+                  px={16} 
+                  alignSelf="center"
+                  bgGradient="linear(45deg, #4388a2, #63b3ed)"
+                  color="white" 
+                  isLoading={isSubmitting}
+                  loadingText="Sending..."
+                  rightIcon={<FaPaperPlane />}
+                  _hover={{ 
+                    bgGradient: "linear(45deg, #3182ce, #4388a2)",
+                    transform: "translateY(-2px)",
+                    boxShadow: "0 10px 20px -5px rgba(67, 136, 162, 0.4)"
+                  }}
+                  _active={{ transform: "translateY(0px)" }}
+                  transition="all 0.3s ease"
+                  borderRadius="xl"
+                  fontWeight="600"
+                  py={6}
+                >
                   Send Message
                 </Button>
               </VStack>

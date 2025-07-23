@@ -1,19 +1,16 @@
-// src/components/Footer.tsx
 import { Box, Text, HStack, Link, Icon, VStack } from "@chakra-ui/react";
 import { FaLinkedin, FaGithub } from "react-icons/fa";
-// ✅ 1. Importamos el hook para la animación
 import { useInView } from "react-intersection-observer";
 
 export const Footer = () => {
-  // ✅ 2. Hook para detectar cuando el footer está visible
   const { ref, inView } = useInView({
-    triggerOnce: true, // La animación se ejecuta solo una vez
+    triggerOnce: true, 
     threshold: 0.1,
   });
 
   return (
     <Box
-      ref={ref} // Asignamos la referencia al componente
+      ref={ref} 
       as="footer"
       py={8}
       px={8}
@@ -21,7 +18,6 @@ export const Footer = () => {
       borderTop="1px solid rgba(255, 255, 255, 0.1)"
       backdropFilter="blur(10px)"
       color="gray.400"
-      // ✅ 3. Aplicamos la animación de aparición
       opacity={inView ? 1 : 0}
       transition="opacity 0.8s ease-in-out"
     >

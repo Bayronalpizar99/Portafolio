@@ -28,13 +28,11 @@ export const SobreMi = () => {
     }
   ];
 
-  // ✅ CAMBIO: Se elimina 'triggerOnce: true' de todos los hooks para que la animación se repita.
   const { ref: headingRef, inView: headingInView } = useInView({ threshold: 0.5 });
   const { ref: imageRef, inView: imageInView } = useInView({ threshold: 0.5 });
   const { ref: textRef, inView: textInView } = useInView({ threshold: 0.4 });
   const { ref: competenciesRef, inView: competenciesInView } = useInView({ threshold: 0.2 });
 
-  // Función para crear estilos de animación reutilizables
   const createFadeInStyle = (inView: boolean, delay: string = '0s') => ({
     opacity: inView ? 1 : 0,
     transform: inView ? 'translateY(0)' : 'translateY(20px)',

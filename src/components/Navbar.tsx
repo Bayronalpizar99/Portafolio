@@ -1,12 +1,10 @@
-// src/components/Navbar.tsx
 import { Flex, HStack, Text, Box } from "@chakra-ui/react";
 import { Link } from 'react-scroll';
 
-// Importamos Space Grotesk desde Google Fonts
 const spaceGroteskStyle = {
   fontFamily: '"Space Grotesk", system-ui, sans-serif',
   fontOpticalSizing: 'auto',
-  fontWeight: '700', // Bold para mayor impacto
+  fontWeight: '700', 
   fontStyle: 'normal',
 };
 
@@ -16,10 +14,10 @@ export const Navbar = () => {
     fontWeight: "medium",
     cursor: "pointer",
     position: "relative" as const,
-    zIndex: 2, // Asegurar que los enlaces estén por encima
+    zIndex: 2, 
   };
 
-  // Corregido: z-index negativo para que no interfiera con los clicks
+  
   const navLinkHoverEffect = {
     position: "relative" as const,
     _after: {
@@ -33,7 +31,7 @@ export const Navbar = () => {
       backgroundColor: 'brand.primary',
       transformOrigin: 'bottom right',
       transition: 'transform 0.25s ease-out',
-      zIndex: -1, // Asegurar que esté detrás del texto
+      zIndex: -1, 
     },
     _hover: {
       _after: {
@@ -43,7 +41,7 @@ export const Navbar = () => {
     },
   };
 
-  // Función para crear animación de entrada escalonada
+  
   const createEntryAnimation = (delay: number) => ({
     animation: `slideInFromTop 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) ${delay}s both`,
   });
@@ -58,7 +56,7 @@ export const Navbar = () => {
       bg="brand.background"
       position="fixed"
       width="100%"
-      zIndex={1000} // Aumentado para asegurar que esté por encima de otros elementos
+      zIndex={1000} 
       boxShadow="0px 4px 20px -7px #04a56b"
       right="0"
       left="0"
@@ -68,7 +66,7 @@ export const Navbar = () => {
         position="relative"
         display="inline-block"
         sx={{
-          // SUBRAYADO INFERIOR (original)
+          
           '&::before': {
             content: '""',
             position: 'absolute',
@@ -79,10 +77,10 @@ export const Navbar = () => {
             background: 'linear-gradient(90deg, transparent, #04a56b80, #05c280, #04a56b80, transparent)',
             backgroundSize: '200% 100%',
             borderRadius: '2px',
-            zIndex: -2, // Más atrás para no interferir
+            zIndex: -2, 
             animation: 'glowing-underline 6s ease-in-out infinite',
             filter: 'blur(1px)',
-            pointerEvents: 'none', // Crucial: evita que interfiera con clicks
+            pointerEvents: 'none',
           },
           '&::after': {
             content: '""',
@@ -94,13 +92,13 @@ export const Navbar = () => {
             background: 'linear-gradient(90deg, transparent, #04a56b, #05c280, #02d68f, #04a56b, transparent)',
             backgroundSize: '200% 100%',
             borderRadius: '1px',
-            zIndex: -2, // Más atrás para no interferir
+            zIndex: -2, 
             animation: 'glowing-underline 6s ease-in-out infinite reverse',
             boxShadow: '0 0 8px #04a56b40, 0 0 16px #04a56b20',
-            pointerEvents: 'none', // Crucial: evita que interfiera con clicks
+            pointerEvents: 'none', 
           },
 
-          // OVERLINE SUPERIOR (nuevo)
+          
           '& > span::before': {
             content: '""',
             position: 'absolute',
@@ -111,11 +109,11 @@ export const Navbar = () => {
             background: 'linear-gradient(90deg, transparent, #04a56b80, #05c280, #04a56b80, transparent)',
             backgroundSize: '200% 100%',
             borderRadius: '2px',
-            zIndex: -2, // Más atrás para no interferir
+            zIndex: -2, 
             animation: 'glowing-overline 6s ease-in-out infinite',
-            animationDelay: '3s', // Desfase para que vayan alternadas
+            animationDelay: '3s', 
             filter: 'blur(1px)',
-            pointerEvents: 'none', // Crucial: evita que interfiera con clicks
+            pointerEvents: 'none', 
           },
           '& > span::after': {
             content: '""',
@@ -127,11 +125,11 @@ export const Navbar = () => {
             background: 'linear-gradient(90deg, transparent, #04a56b, #05c280, #02d68f, #04a56b, transparent)',
             backgroundSize: '200% 100%',
             borderRadius: '1px',
-            zIndex: -2, // Más atrás para no interferir
+            zIndex: -2, 
             animation: 'glowing-overline 6s ease-in-out infinite reverse',
-            animationDelay: '3s', // Mismo desfase
+            animationDelay: '3s', 
             boxShadow: '0 0 8px #04a56b40, 0 0 16px #04a56b20',
-            pointerEvents: 'none', // Crucial: evita que interfiera con clicks
+            pointerEvents: 'none', 
           },
 
           '@keyframes glowing-underline': {
@@ -177,9 +175,9 @@ export const Navbar = () => {
           fontWeight="bold"
           color="brand.text"
           position="relative"
-          zIndex={2} // Asegurar que esté por encima de las animaciones
+          zIndex={2} 
           display="inline-block"
-          sx={spaceGroteskStyle} // Aplicamos Space Grotesk
+          sx={spaceGroteskStyle} // Space Grotesk
         >
           Bayron AQ
         </Text>
