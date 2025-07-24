@@ -18,6 +18,11 @@ export const Navbar = () => {
     opacity: 1, // Asegurar opacidad completa
   };
 
+  // Animación de entrada para los enlaces
+  const createEntryAnimation = (delay: number) => ({
+    animation: `slideInFromTop 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) ${delay}s both`,
+  });
+
   
   const navLinkHoverEffect = {
     position: "relative" as const,
@@ -155,7 +160,17 @@ export const Navbar = () => {
             },
           },
 
-
+          // Animación de entrada para los enlaces del navbar
+          '@keyframes slideInFromTop': {
+            '0%': {
+              opacity: 0,
+              transform: 'translateY(-30px) scale(0.8)',
+            },
+            '100%': {
+              opacity: 1,
+              transform: 'translateY(0) scale(1)',
+            },
+          },
         }}
       >
         <Text
@@ -178,6 +193,7 @@ export const Navbar = () => {
           position="relative" 
           sx={{
             ...navLinkHoverEffect,
+            ...createEntryAnimation(0.2),
           }}
         >
           <Link 
@@ -196,6 +212,7 @@ export const Navbar = () => {
           position="relative" 
           sx={{
             ...navLinkHoverEffect,
+            ...createEntryAnimation(0.4),
           }}
         >
           <Link 
@@ -214,6 +231,7 @@ export const Navbar = () => {
           position="relative" 
           sx={{
             ...navLinkHoverEffect,
+            ...createEntryAnimation(0.6),
           }}
         >
           <Link 
@@ -234,6 +252,7 @@ export const Navbar = () => {
           position="relative" 
           sx={{
             ...navLinkHoverEffect,
+            ...createEntryAnimation(0.8),
           }}
         >
           <Link 
@@ -253,6 +272,7 @@ export const Navbar = () => {
           position="relative" 
           sx={{
             ...navLinkHoverEffect,
+            ...createEntryAnimation(1.0),
           }}
         >
           <Link 
