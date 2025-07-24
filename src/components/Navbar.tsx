@@ -10,11 +10,12 @@ const spaceGroteskStyle = {
 
 export const Navbar = () => {
   const linkStyles = {
-    color: "brand.text",
-    fontWeight: "medium",
+    color: "#ffffff", // Blanco puro para máxima visibilidad
+    fontWeight: "600", // Peso de fuente más fuerte
     cursor: "pointer",
     position: "relative" as const,
-    zIndex: 2, 
+    zIndex: 2,
+    opacity: 1, // Asegurar opacidad completa
   };
 
   
@@ -41,10 +42,7 @@ export const Navbar = () => {
     },
   };
 
-  
-  const createEntryAnimation = (delay: number) => ({
-    animation: `slideInFromTop 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) ${delay}s both`,
-  });
+
 
   return (
     <Flex
@@ -53,8 +51,9 @@ export const Navbar = () => {
       justify="space-between"
       paddingY={4}
       paddingX={8}
-      bg="brand.background"
+      bg="rgba(1, 15, 24, 0.8)" // Fondo semi-transparente
       position="fixed"
+      sx={{ backdropFilter: 'blur(10px)' }} // Efecto "frosted glass"
       width="100%"
       zIndex={1000} 
       boxShadow="0px 4px 20px -7px #04a56b"
@@ -156,17 +155,7 @@ export const Navbar = () => {
             },
           },
 
-          // Animación de entrada para los enlaces del navbar
-          '@keyframes slideInFromTop': {
-            '0%': {
-              opacity: 0,
-              transform: 'translateY(-30px) scale(0.8)',
-            },
-            '100%': {
-              opacity: 1,
-              transform: 'translateY(0) scale(1)',
-            },
-          },
+
         }}
       >
         <Text
@@ -189,7 +178,6 @@ export const Navbar = () => {
           position="relative" 
           sx={{
             ...navLinkHoverEffect,
-            ...createEntryAnimation(0.2),
           }}
         >
           <Link 
@@ -208,7 +196,6 @@ export const Navbar = () => {
           position="relative" 
           sx={{
             ...navLinkHoverEffect,
-            ...createEntryAnimation(0.4),
           }}
         >
           <Link 
@@ -227,7 +214,6 @@ export const Navbar = () => {
           position="relative" 
           sx={{
             ...navLinkHoverEffect,
-            ...createEntryAnimation(0.6),
           }}
         >
           <Link 
@@ -248,7 +234,6 @@ export const Navbar = () => {
           position="relative" 
           sx={{
             ...navLinkHoverEffect,
-            ...createEntryAnimation(0.8),
           }}
         >
           <Link 
@@ -268,7 +253,6 @@ export const Navbar = () => {
           position="relative" 
           sx={{
             ...navLinkHoverEffect,
-            ...createEntryAnimation(1.0),
           }}
         >
           <Link 
