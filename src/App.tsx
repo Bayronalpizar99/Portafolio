@@ -1,4 +1,3 @@
-// src/App.tsx
 import { ChakraProvider, Box } from "@chakra-ui/react";
 import { ParticleBackground } from "./components/ParticleBackground";
 import { Navbar } from "./components/Navbar";
@@ -7,7 +6,7 @@ import { Tecnologias } from "./components/Tecnologias";
 import { Proyectos } from "./components/Proyectos";
 import { Certificaciones } from "./components/Certificaciones";
 import { Contacto } from "./components/Contacto";
-import { Footer } from "./components/Footer"; // <-- 1. Importa el nuevo componente
+import { Footer } from "./components/Footer";
 import theme from './theme';
 
 function App() {
@@ -15,6 +14,7 @@ function App() {
     <ChakraProvider theme={theme}>
       <Box position="relative" height="100vh">
         <ParticleBackground />
+        {/* El Navbar ahora está aquí, fuera del contenedor de scroll */}
         <Navbar />
         <Box
           id="main-content"
@@ -23,9 +23,9 @@ function App() {
           left="0"
           right="0"
           bottom="0"
-          zIndex={1}
+          zIndex={1} // Este zIndex ya no causará conflictos
           overflowY="auto"
-          paddingTop="72px"
+          paddingTop="72px" // Añadimos padding para que el contenido no quede debajo del Navbar
           css={{
             '&::-webkit-scrollbar': {
               width: '8px',
@@ -54,7 +54,7 @@ function App() {
             <Certificaciones />
             <Contacto />
           </main>
-          <Footer /> {/* <-- 2. Añade el componente aquí */}
+          <Footer />
         </Box>
       </Box>
     </ChakraProvider>

@@ -18,6 +18,10 @@ export const ParticleBackground = () => {
 
   const particleOptions: ISourceOptions = useMemo(
     () => ({
+      backgroundMode: {
+        enable: true,
+        zIndex: -1
+      },
       background: {
         color: {
           value: "#00141f",
@@ -67,10 +71,9 @@ export const ParticleBackground = () => {
           outModes: {
             default: "out",
           },
-          random: true,
-  
-          speed: 1,
-          straight: false,
+          random: false, 
+          speed: 0.6,
+          straight: true, 
         },
         number: {
           density: {
@@ -116,18 +119,9 @@ export const ParticleBackground = () => {
         <Particles
           id="tsparticles"
           options={particleOptions}
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            zIndex: -1,
-          }}
         />
       </Box>
     );
   }
-
   return null;
 };
