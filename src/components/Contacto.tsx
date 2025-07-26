@@ -40,11 +40,12 @@ export const Contacto = () => {
     setIsSubmitting(true);
 
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
-      
-      const response = await fetch(`${API_URL}/api/contact`, {
+      // ✅ CAMBIO PRINCIPAL: Ahora usa la API route de Vercel
+      const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify(formData),
       });
 
@@ -198,11 +199,9 @@ export const Contacto = () => {
                   <Textarea name="message" value={formData.message} onChange={handleInputChange} placeholder="Hello! I'd like to collaborate with you on..." rows={5} bg="rgba(255, 255, 255, 0.05)" border="1px solid rgba(255, 255, 255, 0.1)" borderRadius="xl" _hover={{ borderColor: "rgba(67, 136, 162, 0.5)" }} _focus={{ borderColor: "#4388a2", boxShadow: "0 0 0 1px #4388a2", bg: "rgba(255, 255, 255, 0.08)" }} color="white" _placeholder={{ color: "gray.500" }} resize="vertical" />
                 </FormControl>
                 
-                {/* ✅ CAMBIO: Botón ajustado para ser más pequeño horizontalmente */}
                 <Button 
                   type="submit" 
                   size="lg"
-                  // Se elimina width="100%" y se añade padding horizontal (px) y se centra
                   px={16} 
                   alignSelf="center"
                   bgGradient="linear(45deg, #4388a2, #63b3ed)"
