@@ -1,6 +1,4 @@
-// src/components/Tecnologias.tsx
 import { Box, Heading, VStack, SimpleGrid, Text } from "@chakra-ui/react";
-// ✅ 1. Importamos las herramientas necesarias para las animaciones
 import { keyframes } from "@emotion/react";
 import { useInView } from "react-intersection-observer";
 import {
@@ -12,43 +10,154 @@ import {
   SiSharp, SiChakraui,
 } from "react-icons/si";
 
-// Animación de flotación que ya teníamos
-const float = keyframes`
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
-  100% { transform: translateY(0px); }
+const gentleFloat = keyframes`
+  0% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-4px) rotate(1deg); }
+  66% { transform: translateY(-2px) rotate(-0.5deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+`;
+
+const slideInScale = keyframes`
+  0% { 
+    opacity: 0; 
+    transform: translateY(30px) scale(0.8) rotate(-5deg);
+  }
+  60% { 
+    transform: translateY(-5px) scale(1.05) rotate(2deg);
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0px) scale(1) rotate(0deg);
+  }
+`;
+
+const subtlePulse = keyframes`
+  0% { box-shadow: 0 0 0 0 rgba(4, 165, 107, 0.1); }
+  50% { box-shadow: 0 0 0 8px rgba(4, 165, 107, 0.05); }
+  100% { box-shadow: 0 0 0 0 rgba(4, 165, 107, 0.1); }
 `;
 
 const technologies = [
-    { name: "React", icon: <FaReact /> },
-    { name: "Node.js", icon: <FaNodeJs /> },
-    { name: "Java", icon: <FaJava /> },
-    { name: "C#", icon: <SiSharp /> },
-    { name: "Python", icon: <FaPython /> },
-    { name: "TypeScript", icon: <SiTypescript /> },
-    { name: "JavaScript", icon: <SiJavascript /> },
-    { name: "PostgreSQL", icon: <SiPostgresql /> },
-    { name: "Supabase", icon: <SiSupabase /> },
-    { name: "Chakra UI", icon: <SiChakraui /> },
-    { name: "Bootstrap", icon: <FaBootstrap /> },
-    { name: "Figma", icon: <FaFigma /> },
-    { name: "Jira", icon: <FaJira /> },
-    { name: "Docker", icon: <FaDocker /> },
-    { name: "Git", icon: <FaGitAlt /> },
+  { name: "React", icon: <FaReact /> },
+  { name: "Node.js", icon: <FaNodeJs /> },
+  { name: "Java", icon: <FaJava /> },
+  { name: "C#", icon: <SiSharp /> },
+  { name: "Python", icon: <FaPython /> },
+  { name: "TypeScript", icon: <SiTypescript /> },
+  { name: "JavaScript", icon: <SiJavascript /> },
+  { name: "PostgreSQL", icon: <SiPostgresql /> },
+  { name: "Supabase", icon: <SiSupabase /> },
+  { name: "Chakra UI", icon: <SiChakraui /> },
+  { name: "Bootstrap", icon: <FaBootstrap /> },
+  { name: "Figma", icon: <FaFigma /> },
+  { name: "Jira", icon: <FaJira /> },
+  { name: "Docker", icon: <FaDocker /> },
+  { name: "Git", icon: <FaGitAlt /> },
 ];
 
-export const Tecnologias = () => {
-  // ✅ 2. Hook para detectar cuando la sección está visible
+const TechCard = ({ tech, index }: { tech: any, index: number }) => {
   const { ref, inView } = useInView({
-    triggerOnce: true, // La animación se dispara solo una vez
-    threshold: 0.1,    // Se activa cuando el 10% de la sección es visible
+    threshold: 0.2,
+    triggerOnce: false, 
+  });
+
+  const floatDuration = 2.5 + (index % 3) * 0.5; 
+  const floatDelay = index * 150; 
+
+  return (
+    <VStack
+      ref={ref}
+      spacing={4}
+      p={6}
+      bg="rgba(4, 165, 107, 0.05)"
+      border="1px solid"
+      borderColor="rgba(4, 165, 107, 0.2)"
+      borderRadius="xl"
+      position="relative"
+      overflow="hidden"
+      transition="transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                 background-color 0.2s ease,
+                 border-color 0.2s ease,
+                 box-shadow 0.25s ease"
+      
+      style={{
+        opacity: inView ? 1 : 0,
+        transform: inView ? 'translateY(0px) scale(1) rotate(0deg)' : 'translateY(30px) scale(0.8) rotate(-5deg)',
+        transition: `opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${index * 100}ms, 
+                    transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${index * 100}ms`,
+      }}
+      
+
+      animation={`${gentleFloat} ${floatDuration}s ease-in-out ${floatDelay}ms infinite, ${subtlePulse} 4s ease-in-out infinite ${floatDelay + 1000}ms`}
+      
+      _hover={{
+        transform: 'translateY(-8px) scale(1.08) rotate(2deg)',
+        bg: 'rgba(4, 165, 107, 0.2)',
+        borderColor: 'brand.primary',
+        boxShadow: '0 12px 30px rgba(4, 165, 107, 0.4), 0 0 20px rgba(4, 165, 107, 0.2)',
+        zIndex: 10,
+        '&::before': {
+          left: '100%',
+        }
+      }}
+      
+      _active={{
+        transform: 'scale(0.95)',
+        transition: 'transform 0.1s ease',
+      }}
+      
+      cursor="pointer"
+      _before={{
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: '-100%',
+        width: '100%',
+        height: '100%',
+        background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)',
+        transition: 'left 0.5s ease',
+        zIndex: 1,
+      }}
+    >
+      <Box 
+        color="brand.primary" 
+        fontSize="3.5rem"
+        position="relative"
+        zIndex={2}
+        transition="transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)"
+        sx={{
+          'VStack:hover &': {
+            transform: 'rotate(5deg) scale(1.1)',
+          }
+        }}
+      >
+        {tech.icon}
+      </Box>
+      
+      <Text 
+        fontWeight="bold"
+        color="brand.text"
+        position="relative"
+        zIndex={2}
+        fontSize="md"
+      >
+        {tech.name}
+      </Text>
+    </VStack>
+  );
+};
+
+export const Tecnologias = () => {
+  const { ref, inView } = useInView({
+    threshold: 0.1,
+    triggerOnce: false, 
   });
 
   return (
     <Box
       as="section"
       id="tecnologias"
-      ref={ref} // ✅ 3. Asignamos la referencia a la sección
+      ref={ref}
       minHeight="100vh"
       pt="80px"
       pb="80px"
@@ -63,12 +172,6 @@ export const Tecnologias = () => {
         spacing={12}
         maxWidth="900px"
         width="100%"
-        // ✅ 4. Aplicamos el efecto de aparición a todo el contenido
-        style={{
-          opacity: inView ? 1 : 0,
-          transform: inView ? 'translateY(0)' : 'translateY(20px)',
-          transition: 'opacity 0.8s ease-out, transform 0.8s ease-out'
-        }}
       >
         <Heading
           as="h2"
@@ -78,36 +181,19 @@ export const Tecnologias = () => {
             fontFamily: '"Space Grotesk", system-ui, sans-serif',
             fontWeight: '700',
           }}
+          
+          style={{
+            opacity: inView ? 1 : 0,
+            transform: inView ? 'translateY(0) scale(1)' : 'translateY(30px) scale(0.9)',
+            transition: 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)'
+          }}
         >
-          {/* Título traducido para consistencia */}
-          My top technologies
+          My Top Technologies
         </Heading>
 
         <SimpleGrid columns={[2, 3, 4, 5]} spacing={8} width="100%">
           {technologies.map((tech, index) => (
-            <VStack
-              key={index}
-              spacing={4}
-              p={6}
-              bg="rgba(4, 165, 107, 0.05)"
-              border="1px solid"
-              borderColor="rgba(4, 165, 107, 0.2)"
-              borderRadius="xl"
-              transition="all 0.3s ease"
-              _hover={{
-                transform: 'translateY(-5px) scale(1.05)',
-                bg: 'rgba(4, 165, 107, 0.15)',
-                borderColor: 'brand.primary',
-                boxShadow: '0 7px 20px rgba(4, 165, 107, 0.3)',
-              }}
-              // Mantenemos la animación de flotación constante
-              animation={`${float} 3s ease-in-out infinite`}
-              // El retraso de la animación de flotación ahora da un efecto más orgánico
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              <Box color="brand.primary" fontSize="3.5rem">{tech.icon}</Box>
-              <Text fontWeight="medium" color="brand.text">{tech.name}</Text>
-            </VStack>
+            <TechCard key={index} tech={tech} index={index} />
           ))}
         </SimpleGrid>
       </VStack>

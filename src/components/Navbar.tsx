@@ -1,5 +1,6 @@
 import { Flex, HStack, Text, Box } from "@chakra-ui/react";
 import { Link } from 'react-scroll';
+import { keyframes } from "@emotion/react";
 
 const spaceGroteskStyle = {
   fontFamily: '"Space Grotesk", system-ui, sans-serif',
@@ -7,6 +8,28 @@ const spaceGroteskStyle = {
   fontWeight: '700', 
   fontStyle: 'normal',
 };
+
+// ✅ NUEVA ANIMACIÓN: Efecto de deslizamiento de letras
+const letterSlide = keyframes`
+  0% { transform: translateY(0px) rotate(0deg); }
+  25% { transform: translateY(-3px) rotate(1deg); }
+  50% { transform: translateY(-6px) rotate(-1deg); }
+  75% { transform: translateY(-3px) rotate(0.5deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+`;
+
+// ✅ NUEVA ANIMACIÓN: Efecto de ondulación
+const rippleEffect = keyframes`
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+`;
+
+// ✅ NUEVA ANIMACIÓN: Brillo que se mueve
+const shineMove = keyframes`
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+`;
 
 export const Navbar = () => {
   const linkStyles = {
@@ -47,8 +70,6 @@ export const Navbar = () => {
     },
   };
 
-
-
   return (
     <Flex
       as="nav"
@@ -70,6 +91,11 @@ export const Navbar = () => {
         position="relative"
         display="inline-block"
         sx={{
+          // ✅ NUEVO: Animación de hover para todo el contenedor del logo
+          transition: 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
+          _hover: {
+            transform: 'scale(1.05)',
+          },
           
           '&::before': {
             content: '""',
@@ -171,6 +197,26 @@ export const Navbar = () => {
               transform: 'translateY(0) scale(1)',
             },
           },
+
+          // ✅ NUEVAS ANIMACIONES para el logo
+          '@keyframes letterSlide': {
+            '0%': { transform: 'translateY(0px) rotate(0deg)' },
+            '25%': { transform: 'translateY(-3px) rotate(1deg)' },
+            '50%': { transform: 'translateY(-6px) rotate(-1deg)' },
+            '75%': { transform: 'translateY(-3px) rotate(0.5deg)' },
+            '100%': { transform: 'translateY(0px) rotate(0deg)' },
+          },
+
+          '@keyframes rippleEffect': {
+            '0%': { transform: 'scale(1)' },
+            '50%': { transform: 'scale(1.05)' },
+            '100%': { transform: 'scale(1)' },
+          },
+
+          '@keyframes shineMove': {
+            '0%': { backgroundPosition: '-200% center' },
+            '100%': { backgroundPosition: '200% center' },
+          },
         }}
       >
         <Text
@@ -181,9 +227,57 @@ export const Navbar = () => {
           position="relative"
           zIndex={2} 
           display="inline-block"
-          sx={spaceGroteskStyle} // Space Grotesk
+          sx={{
+            ...spaceGroteskStyle,
+            cursor: 'pointer',
+            transition: 'all 0.3s ease',
+            
+            // ✅ CORREGIDO: Efecto de brillo solo en hover, manteniendo color normal
+            _hover: {
+              // Solo aplicar el gradiente en hover
+              background: 'linear-gradient(90deg, #e9eef1 25%, #ffffff 50%, #e9eef1 75%)',
+              backgroundSize: '200% 100%',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              color: 'transparent',
+              
+              // Activar el brillo que se mueve
+              animation: `${shineMove} 0.8s ease-in-out, ${rippleEffect} 0.6s ease-in-out`,
+              
+              // ✅ NUEVO: Animación de letras individuales en hover
+              '& .letter': {
+                display: 'inline-block',
+                animation: `${letterSlide} 0.6s ease-in-out`,
+              },
+              
+              // ✅ NUEVO: Cada letra con un delay diferente para efecto cascada
+              '& .letter:nth-of-type(1)': { animationDelay: '0ms' },
+              '& .letter:nth-of-type(2)': { animationDelay: '50ms' },
+              '& .letter:nth-of-type(3)': { animationDelay: '100ms' },
+              '& .letter:nth-of-type(4)': { animationDelay: '150ms' },
+              '& .letter:nth-of-type(5)': { animationDelay: '200ms' },
+              '& .letter:nth-of-type(6)': { animationDelay: '250ms' },
+              '& .letter:nth-of-type(7)': { animationDelay: '300ms' },
+              '& .letter:nth-of-type(8)': { animationDelay: '350ms' },
+              '& .letter:nth-of-type(9)': { animationDelay: '400ms' },
+            },
+
+            // ✅ NUEVO: Letras preparadas para animación pero invisibles hasta hover
+            '& .letter': {
+              transition: 'all 0.3s ease',
+            }
+          }}
         >
-          Bayron AQ
+          {/* ✅ NUEVO: Dividir "Bayron AQ" en letras individuales para animación */}
+          <span className="letter">B</span>
+          <span className="letter">a</span>
+          <span className="letter">y</span>
+          <span className="letter">r</span>
+          <span className="letter">o</span>
+          <span className="letter">n</span>
+          <span className="letter">&nbsp;</span>
+          <span className="letter">A</span>
+          <span className="letter">Q</span>
         </Text>
       </Box>
 
