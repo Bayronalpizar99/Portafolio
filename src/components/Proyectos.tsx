@@ -4,7 +4,7 @@ import { useInView } from "react-intersection-observer";
 
 const projects = [
   {
-    title: "POS system",
+    title: "POS System",
     description: "Full-stack application for distributors with customer, inventory, product, billing, and reporting management. Secure authentication, analytical dashboard, business validation, and scalable architecture.",
     image: "https://picsum.photos/seed/project1/400/300",
     tags: ["React", "Bootstrap", "FastAPI","Supabase"],
@@ -44,7 +44,7 @@ const projects = [
     repoUrl: "#",
   },
   {
-    title: "La galeta de Chizo",
+    title: "La Galeta De Chizo",
     description: "Last featured project. Ideal for showcasing a specific skill like UI/UX design with Figma or using a library like Bootstrap.",
     image: "https://picsum.photos/seed/project6/400/300",
     tags: ["HTML", "CSS", "Bootstrap", "Figma"],

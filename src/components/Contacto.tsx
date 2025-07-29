@@ -125,7 +125,7 @@ export const Contacto = () => {
           </VStack>
 
           <VStack 
-            bg="rgba(0,0,0,0.2)" 
+            bg="rgba(67, 136, 162, 0.05)" 
             p={8} 
             borderRadius="xl" 
             spacing={8} 
@@ -133,11 +133,19 @@ export const Contacto = () => {
           >
             <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6} width="100%">
               <Box
-                bg="rgba(67, 136, 162, 0.1)"
-                p={6} borderRadius="2xl" border="1px solid rgba(67, 136, 162, 0.2)"
+                bg="rgba(67, 136, 162, 0.05)"
+                border="1px solid"
+                borderColor="rgba(67, 136, 162, 0.1)"
+                p={6} 
+                borderRadius="2xl" 
                 transition="all 0.3s ease"
-                _hover={{ transform: "translateY(-5px)", bg: "rgba(67, 136, 162, 0.15)", boxShadow: "0 20px 40px -10px rgba(67, 136, 162, 0.3)"}}
-                cursor="pointer" onClick={() => window.open('mailto:bayalpiizar777@gmail.com')}
+                _hover={{ 
+                  transform: "translateY(-8px)", 
+                  boxShadow: "0 10px 30px rgba(4, 165, 107, 0.2)",
+                  borderColor: 'brand.primary'
+                }}
+                cursor="pointer" 
+                onClick={() => window.open('mailto:bayalpiizar777@gmail.com')}
                 style={createFadeInStyle(sectionInView, '0.2s')}
               >
                 <VStack spacing={4}>
@@ -146,18 +154,36 @@ export const Contacto = () => {
                     <HStack><Icon as={FiMail} color="gray.400" /><Text color="gray.400" fontSize="sm" fontWeight="500">Email</Text></HStack>
                     <Text color="white" fontWeight="600" fontSize="lg">bayalpiizar777@gmail.com</Text>
                   </VStack>
-                  <Button size="sm" variant="outline" colorScheme="blue" onClick={(e) => { e.stopPropagation(); onCopyEmail(); }} leftIcon={<FiCopy/>} _hover={{ bg: "rgba(67, 136, 162, 0.2)" }}>
+                  <Button 
+                    size="sm" 
+                    variant="outline" 
+                    colorScheme="blue" 
+                    onClick={(e) => { e.stopPropagation(); onCopyEmail(); }} 
+                    leftIcon={<FiCopy/>} 
+                    _hover={{ 
+                      bg: "rgba(67, 136, 162, 0.2)",
+                      borderColor: 'brand.primary'
+                    }}
+                  >
                     {hasCopiedEmail ? 'Copied!' : 'Copy'}
                   </Button>
                 </VStack>
               </Box>
 
               <Box
-                bg="rgba(37, 211, 102, 0.1)"
-                p={6} borderRadius="2xl" border="1px solid rgba(37, 211, 102, 0.2)"
+                bg="rgba(67, 136, 162, 0.05)"
+                border="1px solid"
+                borderColor="rgba(67, 136, 162, 0.1)"
+                p={6} 
+                borderRadius="2xl" 
                 transition="all 0.3s ease"
-                _hover={{ transform: "translateY(-5px)", bg: "rgba(37, 211, 102, 0.15)", boxShadow: "0 20px 40px -10px rgba(37, 211, 102, 0.3)"}}
-                cursor="pointer" onClick={() => window.open('https://wa.me/50685825590')}
+                _hover={{ 
+                  transform: "translateY(-8px)", 
+                  boxShadow: "0 10px 30px rgba(4, 165, 107, 0.2)",
+                  borderColor: 'brand.primary'
+                }}
+                cursor="pointer" 
+                onClick={() => window.open('https://wa.me/50685825590')}
                 style={createFadeInStyle(sectionInView, '0.3s')}
               >
                 <VStack spacing={4}>
@@ -166,7 +192,17 @@ export const Contacto = () => {
                     <HStack><Icon as={FiMessageCircle} color="gray.400" /><Text color="gray.400" fontSize="sm" fontWeight="500">WhatsApp</Text></HStack>
                     <Text color="white" fontWeight="600" fontSize="lg">+506 8582-5590</Text>
                   </VStack>
-                  <Button size="sm" variant="outline" colorScheme="whatsapp" onClick={(e) => { e.stopPropagation(); onCopyPhone(); }} leftIcon={<FiCopy/>} _hover={{ bg: "rgba(37, 211, 102, 0.2)" }}>
+                  <Button 
+                    size="sm" 
+                    variant="outline" 
+                    colorScheme="whatsapp" 
+                    onClick={(e) => { e.stopPropagation(); onCopyPhone(); }} 
+                    leftIcon={<FiCopy/>} 
+                    _hover={{ 
+                      bg: "rgba(37, 211, 102, 0.2)",
+                      borderColor: '#25D366'
+                    }}
+                  >
                     {hasCopiedPhone ? 'Copied!' : 'Copy'}
                   </Button>
                 </VStack>
@@ -185,18 +221,72 @@ export const Contacto = () => {
                 <SimpleGrid columns={{ base: 1, md: 2 }} spacing={6} width="100%">
                   <FormControl isRequired>
                     <FormLabel color="gray.300" fontWeight="500">Your Name</FormLabel>
-                    <Input type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="John Doe" bg="rgba(255, 255, 255, 0.05)" border="1px solid rgba(255, 255, 255, 0.1)" borderRadius="xl" _hover={{ borderColor: "rgba(67, 136, 162, 0.5)" }} _focus={{ borderColor: "#4388a2", boxShadow: "0 0 0 1px #4388a2", bg: "rgba(255, 255, 255, 0.08)" }} color="white" _placeholder={{ color: "gray.500" }} size="lg"/>
+                    <Input 
+                      type="text" 
+                      name="name" 
+                      value={formData.name} 
+                      onChange={handleInputChange} 
+                      placeholder="John Doe" 
+                      bg="rgba(255, 255, 255, 0.05)" 
+                      border="1px solid rgba(255, 255, 255, 0.1)" 
+                      borderRadius="xl" 
+                      _hover={{ borderColor: "rgba(67, 136, 162, 0.5)" }} 
+                      _focus={{ 
+                        borderColor: "brand.primary", 
+                        boxShadow: "0 0 0 1px #04a56b", 
+                        bg: "rgba(255, 255, 255, 0.08)" 
+                      }} 
+                      color="white" 
+                      _placeholder={{ color: "gray.500" }} 
+                      size="lg"
+                    />
                   </FormControl>
                   
                   <FormControl isRequired>
                     <FormLabel color="gray.300" fontWeight="500">Your Email</FormLabel>
-                    <Input type="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="john.doe@example.com" bg="rgba(255, 255, 255, 0.05)" border="1px solid rgba(255, 255, 255, 0.1)" borderRadius="xl" _hover={{ borderColor: "rgba(67, 136, 162, 0.5)" }} _focus={{ borderColor: "#4388a2", boxShadow: "0 0 0 1px #4388a2", bg: "rgba(255, 255, 255, 0.08)" }} color="white" _placeholder={{ color: "gray.500" }} size="lg"/>
+                    <Input 
+                      type="email" 
+                      name="email" 
+                      value={formData.email} 
+                      onChange={handleInputChange} 
+                      placeholder="john.doe@example.com" 
+                      bg="rgba(255, 255, 255, 0.05)" 
+                      border="1px solid rgba(255, 255, 255, 0.1)" 
+                      borderRadius="xl" 
+                      _hover={{ borderColor: "rgba(67, 136, 162, 0.5)" }} 
+                      _focus={{ 
+                        borderColor: "brand.primary", 
+                        boxShadow: "0 0 0 1px #04a56b", 
+                        bg: "rgba(255, 255, 255, 0.08)" 
+                      }} 
+                      color="white" 
+                      _placeholder={{ color: "gray.500" }} 
+                      size="lg"
+                    />
                   </FormControl>
                 </SimpleGrid>
                 
                 <FormControl isRequired>
                   <FormLabel color="gray.300" fontWeight="500">Your Message</FormLabel>
-                  <Textarea name="message" value={formData.message} onChange={handleInputChange} placeholder="Hello! I'd like to collaborate with you on..." rows={5} bg="rgba(255, 255, 255, 0.05)" border="1px solid rgba(255, 255, 255, 0.1)" borderRadius="xl" _hover={{ borderColor: "rgba(67, 136, 162, 0.5)" }} _focus={{ borderColor: "#4388a2", boxShadow: "0 0 0 1px #4388a2", bg: "rgba(255, 255, 255, 0.08)" }} color="white" _placeholder={{ color: "gray.500" }} resize="vertical" />
+                  <Textarea 
+                    name="message" 
+                    value={formData.message} 
+                    onChange={handleInputChange} 
+                    placeholder="Hello! I'd like to collaborate with you on..." 
+                    rows={5} 
+                    bg="rgba(255, 255, 255, 0.05)" 
+                    border="1px solid rgba(255, 255, 255, 0.1)" 
+                    borderRadius="xl" 
+                    _hover={{ borderColor: "rgba(67, 136, 162, 0.5)" }} 
+                    _focus={{ 
+                      borderColor: "brand.primary", 
+                      boxShadow: "0 0 0 1px #04a56b", 
+                      bg: "rgba(255, 255, 255, 0.08)" 
+                    }} 
+                    color="white" 
+                    _placeholder={{ color: "gray.500" }} 
+                    resize="vertical" 
+                  />
                 </FormControl>
                 
                 <Button 

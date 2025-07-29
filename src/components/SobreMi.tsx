@@ -1,7 +1,6 @@
-// src/components/SobreMi.tsx
-import { Box, Heading, VStack, Text, Image, SimpleGrid } from "@chakra-ui/react";
+import { Box, Heading, VStack, Text, Image, SimpleGrid, Button, Icon } from "@chakra-ui/react";
 import perfilImg from '../assets/perfil.jpeg';
-import { FaUsers, FaLightbulb, FaCode, FaSyncAlt } from "react-icons/fa";
+import { FaUsers, FaLightbulb, FaCode, FaSyncAlt, FaDownload } from "react-icons/fa";
 import { useInView } from 'react-intersection-observer';
 
 export const SobreMi = () => {
@@ -32,12 +31,18 @@ export const SobreMi = () => {
   const { ref: imageRef, inView: imageInView } = useInView({ threshold: 0.5 });
   const { ref: textRef, inView: textInView } = useInView({ threshold: 0.4 });
   const { ref: competenciesRef, inView: competenciesInView } = useInView({ threshold: 0.2 });
+  const { ref: buttonRef, inView: buttonInView } = useInView({ threshold: 0.3 });
 
   const createFadeInStyle = (inView: boolean, delay: string = '0s') => ({
     opacity: inView ? 1 : 0,
     transform: inView ? 'translateY(0)' : 'translateY(20px)',
     transition: `opacity 0.6s ease-out ${delay}, transform 0.6s ease-out ${delay}`
   });
+
+  const handleResumeClick = () => {
+    const resumeUrl = "https://drive.google.com/file/d/TU_ID_DEL_ARCHIVO/view?usp=sharing";
+    window.open(resumeUrl, '_blank');
+  };
 
   return (
     <Box
@@ -139,6 +144,44 @@ export const SobreMi = () => {
               </VStack>
             ))}
           </SimpleGrid>
+
+          {/* Botón del curriculum */}
+          <Box 
+            ref={buttonRef}
+            pt={6}
+            style={createFadeInStyle(buttonInView, '0.8s')}
+          >
+            <Button
+              onClick={handleResumeClick}
+              size="lg"
+              px={8}
+              py={6}
+              bg="rgba(67, 136, 162, 0.05)"
+              border="2px solid"
+              borderColor="rgba(67, 136, 162, 0.3)"
+              color="brand.text"
+              borderRadius="xl"
+              fontWeight="600"
+              fontSize="md"
+              leftIcon={<Icon as={FaDownload} />}
+              transition="all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)"
+              _hover={{
+                transform: 'translateY(-3px) scale(1.05)',
+                bg: 'rgba(4, 165, 107, 0.1)',
+                borderColor: 'brand.primary',
+                boxShadow: '0 8px 25px rgba(4, 165, 107, 0.3)',
+                color: 'white'
+              }}
+              _active={{
+                transform: 'translateY(-1px) scale(1.02)',
+              }}
+              sx={{
+                fontFamily: '"Space Grotesk", system-ui, sans-serif',
+              }}
+            >
+              View my resume
+            </Button>
+          </Box>
         </VStack>
       </VStack>
     </Box>

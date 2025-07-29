@@ -46,15 +46,14 @@ const CertificationCard = ({ cert, index }: { cert: any, index: number }) => {
     <Flex
       ref={ref}
       p={6}
-      bg="rgba(1, 15, 24, 0.6)"
+      bg="rgba(67, 136, 162, 0.05)"
       border="1px solid"
-      borderColor="rgba(255, 255, 255, 0.1)"
+      borderColor="rgba(67, 136, 162, 0.1)"
       borderRadius="xl"
       align="center"
       width="100%"
       opacity={inView ? 1 : 0}
       transform={inView ? 'translateX(0)' : 'translateX(-30px)'}
-      // ✅ CAMBIO: Transición específica para un hover más rápido
       transition={`
         opacity 0.5s ease-in-out ${index * 150}ms,
         transform 0.5s ease-in-out ${index * 150}ms,
@@ -62,9 +61,9 @@ const CertificationCard = ({ cert, index }: { cert: any, index: number }) => {
         box-shadow 0.25s ease-in-out
       `}
       _hover={{
-        transform: 'translateY(-5px)',
+        transform: 'translateY(-8px)',
+        boxShadow: '0 10px 30px rgba(4, 165, 107, 0.2)',
         borderColor: 'brand.primary',
-        boxShadow: '0 8px 25px rgba(4, 165, 107, 0.2)',
       }}
     >
       <Box color={cert.color} mr={6}>
