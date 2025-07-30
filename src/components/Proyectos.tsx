@@ -7,49 +7,49 @@ const projects = [
     title: "POS System",
     description: "Full-stack application for distributors with customer, inventory, product, billing, and reporting management. Secure authentication, analytical dashboard, business validation, and scalable architecture.",
     image: "https://picsum.photos/seed/project1/400/300",
-    tags: ["React", "Bootstrap", "FastAPI","Supabase"],
-    liveUrl: "#",
-    repoUrl: "#",
+    tags: ["React", "Bootstrap", "FastAPI", "Supabase"],
+    liveUrl: null, // Ocultará el botón "Demo"
+    repoUrl: "https://github.com/Bayronalpizar99/Pos_system.git",
   },
   {
     title: "Green View House",
     description: "Modern website for rural lodging with a functional booking form, WhatsApp integration, interactive image gallery, location maps, and a complete internationalization system. Responsive design with fluid animations.",
     image: "https://picsum.photos/seed/project2/400/300",
     tags: ["React", "TypeScript", "Chakra UI"],
-    liveUrl: "#",
-    repoUrl: "#",
+    liveUrl: "#", // Se mantiene para el futuro
+    repoUrl: "https://github.com/Bayronalpizar99/Casa_Vista_Verde.git",
   },
   {
     title: "Mini-C#",
     description: "Complete compiler for a C# subset developed with ANTLR4. Implements advanced semantic analysis, a symbol table with nested scopes, a robust type system, compile-time error validation, and support for modules.",
     image: "https://picsum.photos/seed/project3/400/300",
     tags: ["C#", "ANTLR4", "Rider"],
-    liveUrl: "#",
-    repoUrl: "#",
+    liveUrl: null, // Ocultará el botón "Demo"
+    repoUrl: "https://github.com/Bayronalpizar99/compiladores.git",
   },
   {
     title: "Tank-Attack-Game",
-    description: "AI tank game that integrates pathfinding algorithms in Haskell. Enemy AI uses DFS for intelligent navigation, inter-process communication, collision detection, a lives system, and comprehensive gameplay mechanics.",
+    description: "AI Tank Game - Pathfinding DFS 2D Python/Pygame video game that integrates pathfinding algorithms in Haskell. Enemy AI uses DFS for intelligent navigation, interprocess communication, collision detection, a health system, and rich gameplay mechanics.",
     image: "https://picsum.photos/seed/project4/400/300",
     tags: ["Python", "Haskell", "Pygame "],
-    liveUrl: "#",
-    repoUrl: "#",
+    liveUrl: null, // Ocultará el botón "Demo"
+    repoUrl: "https://github.com/Bayronalpizar99/Tank-Attack-Game.git",
   },
   {
     title: "Real-Time Stadium Reservation System",
     description: "Full-stack application with webSockets for real-time synchronization, extensible payment system with Strategy pattern, time-based reservations with automatic timers, and intelligent seat allocation algorithms.",
     image: "https://picsum.photos/seed/project5/400/300",
     tags: ["Python", "Rust", "PyQt5"],
-    liveUrl: "#",
-    repoUrl: "#",
+    liveUrl: null, // Ocultará el botón "Demo"
+    repoUrl: "https://github.com/Bayronalpizar99/CuartoLenguajes-POO-.git",
   },
   {
     title: "La Galeta De Chizo",
     description: "Full-featured digital DJ console with dual decks, crossfader, and advanced audio controls. Features real-time waveform visualization, automatic BPM detection, virtual scratching, cue point management, and synchronized global waveform view with zoom functionality.",
     image: "https://picsum.photos/seed/project6/400/300",
     tags: ["React", "JavaScript", "Chakra UI", "WaveSurfer.js"],
-    liveUrl: "#",
-    repoUrl: "#",
+    liveUrl: "#", // Se mantiene para el futuro
+    repoUrl: "https://github.com/Bayronalpizar99/DJ_Mixer.git",
   },
 ];
 
@@ -97,12 +97,15 @@ const ProjectCard = ({ project, index }: { project: any, index: number }) => {
           ))}
         </HStack>
         <HStack spacing={4} width="100%" justify="flex-end" pt={4}>
-          <Link href={project.liveUrl} isExternal _hover={{ color: 'brand.primary' }}>
-            <HStack>
-              <Icon as={FaExternalLinkAlt} />
-              <Text>Demo</Text>
-            </HStack>
-          </Link>
+          {/* Renderizado condicional del botón Demo */}
+          {project.liveUrl && (
+            <Link href={project.liveUrl} isExternal _hover={{ color: 'brand.primary' }}>
+              <HStack>
+                <Icon as={FaExternalLinkAlt} />
+                <Text>Demo</Text>
+              </HStack>
+            </Link>
+          )}
           <Link href={project.repoUrl} isExternal _hover={{ color: 'brand.primary' }}>
             <HStack>
               <Icon as={FaGithub} />
