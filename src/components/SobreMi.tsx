@@ -1,4 +1,4 @@
-import { Box, Heading, VStack, Text, Image, SimpleGrid, Button, Icon } from "@chakra-ui/react";
+import { Box, Heading, VStack, Text, Image, SimpleGrid, Icon, Link } from "@chakra-ui/react";
 import perfilImg from '../assets/perfil.jpeg';
 import { FaUsers, FaLightbulb, FaCode, FaSyncAlt, FaDownload } from "react-icons/fa";
 import { useInView } from 'react-intersection-observer';
@@ -38,11 +38,6 @@ export const SobreMi = () => {
     transform: inView ? 'translateY(0)' : 'translateY(20px)',
     transition: `opacity 0.6s ease-out ${delay}, transform 0.6s ease-out ${delay}`
   });
-
-  const handleResumeClick = () => {
-    const resumeUrl = "https://drive.google.com/file/d/TU_ID_DEL_ARCHIVO/view?usp=sharing";
-    window.open(resumeUrl, '_blank');
-  };
 
   return (
     <Box
@@ -145,42 +140,69 @@ export const SobreMi = () => {
             ))}
           </SimpleGrid>
 
-          {/* Botón del curriculum */}
+          {}
           <Box 
             ref={buttonRef}
             pt={6}
             style={createFadeInStyle(buttonInView, '0.8s')}
           >
-            <Button
-              onClick={handleResumeClick}
-              size="lg"
-              px={8}
-              py={6}
-              bg="rgba(67, 136, 162, 0.05)"
-              border="2px solid"
-              borderColor="rgba(67, 136, 162, 0.3)"
-              color="brand.text"
-              borderRadius="xl"
-              fontWeight="600"
-              fontSize="md"
-              leftIcon={<Icon as={FaDownload} />}
-              transition="all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)"
-              _hover={{
-                transform: 'translateY(-3px) scale(1.05)',
-                bg: 'rgba(4, 165, 107, 0.1)',
-                borderColor: 'brand.primary',
-                boxShadow: '0 8px 25px rgba(4, 165, 107, 0.3)',
-                color: 'white'
-              }}
-              _active={{
-                transform: 'translateY(-1px) scale(1.02)',
-              }}
+            <Link
+              href="/Currículum_Bayron_Alpízar_Quesada.pdf"
+              download="Currículum_Bayron_Alpízar_Quesada.pdf"
+              fontSize="lg"
+              fontWeight="700"
+              color="brand.primary"
+              cursor="pointer"
+              display="inline-flex"
+              alignItems="center"
+              gap={3}
+              paddingBottom='8px' 
+              position="relative" 
+              transition="all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
               sx={{
                 fontFamily: '"Space Grotesk", system-ui, sans-serif',
+                willChange: 'transform, color',
+                transform: 'translate3d(0, 0, 0)',
+                '@keyframes glowing-underline': {
+                  '0%': { backgroundPosition: '-100% 0%' },
+                  '100%': { backgroundPosition: '200% 0%' },
+                },
+
+                '&::before': {
+                  content: '""',
+                  position: 'absolute',
+                  bottom: '0px',
+                  left: '0',
+                  right: '0',
+                  height: '3px',
+                  background: 'linear-gradient(90deg, transparent, #04a56b80, #05c280, #04a56b80, transparent)',
+                  backgroundSize: '200% 100%',
+                  borderRadius: '2px',
+                  animation: 'glowing-underline 5s linear infinite',
+                  filter: 'blur(1.5px)',
+                },            
+                '&::after': {
+                  content: '""',
+                  position: 'absolute',
+                  bottom: '1px',
+                  left: '0',
+                  right: '0',
+                  height: '2px',
+                  background: 'linear-gradient(90deg, transparent, #04a56b, #05c280, #02d68f, #04a56b, transparent)',
+                  backgroundSize: '200% 100%',
+                  borderRadius: '1px',
+                  animation: 'glowing-underline 5s linear infinite reverse',
+                },
+              }}
+              _hover={{
+                textDecoration: 'none', 
+                color: '#02d68f',
+                transform: 'translate3d(0, -2px, 0)',
               }}
             >
+              <Icon as={FaDownload} />
               View my resume
-            </Button>
+            </Link>
           </Box>
         </VStack>
       </VStack>
