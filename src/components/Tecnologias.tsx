@@ -17,20 +17,6 @@ const gentleFloat = keyframes`
   100% { transform: translateY(0px) rotate(0deg); }
 `;
 
-const slideInScale = keyframes`
-  0% { 
-    opacity: 0; 
-    transform: translateY(30px) scale(0.8) rotate(-5deg);
-  }
-  60% { 
-    transform: translateY(-5px) scale(1.05) rotate(2deg);
-  }
-  100% { 
-    opacity: 1; 
-    transform: translateY(0px) scale(1) rotate(0deg);
-  }
-`;
-
 const subtlePulse = keyframes`
   0% { box-shadow: 0 0 0 0 rgba(4, 165, 107, 0.1); }
   50% { box-shadow: 0 0 0 8px rgba(4, 165, 107, 0.05); }

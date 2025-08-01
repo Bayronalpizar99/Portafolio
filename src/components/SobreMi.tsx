@@ -98,7 +98,7 @@ export const SobreMi = () => {
           sx={{ fontFamily: '"Inter", system-ui, sans-serif' }}
           style={createFadeInStyle(textInView, '0.4s')}
         >
-          Full-stack developer passionate about building innovative and high-performance web applications. I integrate AI-based tools into my workflow to speed up development and explore new ways to deliver smarter and more scalable solutions.
+          Full-stack developer passionate about building innovative, high-performance web applications. I enjoy exploring new technologies by working on projects to master tools that allow me to build amazing websites.
         </Text>
 
         <VStack ref={competenciesRef} spacing={8} width="100%" pt={8}>
@@ -156,48 +156,24 @@ export const SobreMi = () => {
               display="inline-flex"
               alignItems="center"
               gap={3}
-              paddingBottom='8px' 
+              px={4}
+              py={3}
+              borderRadius="lg"
+              border="2px solid transparent"
               position="relative" 
               transition="all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
               sx={{
                 fontFamily: '"Space Grotesk", system-ui, sans-serif',
-                willChange: 'transform, color',
+                willChange: 'transform, color, border-color, background-color',
                 transform: 'translate3d(0, 0, 0)',
-                '@keyframes glowing-underline': {
-                  '0%': { backgroundPosition: '-100% 0%' },
-                  '100%': { backgroundPosition: '200% 0%' },
-                },
-
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  bottom: '0px',
-                  left: '0',
-                  right: '0',
-                  height: '3px',
-                  background: 'linear-gradient(90deg, transparent, #04a56b80, #05c280, #04a56b80, transparent)',
-                  backgroundSize: '200% 100%',
-                  borderRadius: '2px',
-                  animation: 'glowing-underline 5s linear infinite',
-                  filter: 'blur(1.5px)',
-                },            
-                '&::after': {
-                  content: '""',
-                  position: 'absolute',
-                  bottom: '1px',
-                  left: '0',
-                  right: '0',
-                  height: '2px',
-                  background: 'linear-gradient(90deg, transparent, #04a56b, #05c280, #02d68f, #04a56b, transparent)',
-                  backgroundSize: '200% 100%',
-                  borderRadius: '1px',
-                  animation: 'glowing-underline 5s linear infinite reverse',
-                },
               }}
               _hover={{
                 textDecoration: 'none', 
                 color: '#02d68f',
+                borderColor: '#04a56b',
+                backgroundColor: 'rgba(4, 165, 107, 0.1)',
                 transform: 'translate3d(0, -2px, 0)',
+                boxShadow: '0 4px 12px rgba(4, 165, 107, 0.3)',
               }}
             >
               <Icon as={FaDownload} />
