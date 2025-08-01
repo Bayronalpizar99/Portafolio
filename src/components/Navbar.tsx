@@ -25,7 +25,6 @@ const rippleEffect = keyframes`
   100% { transform: scale(1); }
 `;
 
-// ✅ NUEVA ANIMACIÓN: Brillo que se mueve
 const shineMove = keyframes`
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }
@@ -33,15 +32,14 @@ const shineMove = keyframes`
 
 export const Navbar = () => {
   const linkStyles = {
-    color: "#ffffff", // Blanco puro para máxima visibilidad
-    fontWeight: "600", // Peso de fuente más fuerte
+    color: "#ffffff", 
+    fontWeight: "600", 
     cursor: "pointer",
     position: "relative" as const,
     zIndex: 2,
-    opacity: 1, // Asegurar opacidad completa
+    opacity: 1, 
   };
 
-  // Animación de entrada para los enlaces
   const createEntryAnimation = (delay: number) => ({
     animation: `slideInFromTop 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) ${delay}s both`,
   });
@@ -77,7 +75,7 @@ export const Navbar = () => {
       justify="space-between"
       paddingY={4}
       paddingX={8}
-      bg="rgba(1, 15, 24, 0.8)" // Fondo semi-transparente
+      bg="rgba(1, 15, 24, 0.8)" 
       position="fixed"
       sx={{ backdropFilter: 'blur(10px)' }} // Efecto "frosted glass"
       width="100%"
@@ -91,7 +89,6 @@ export const Navbar = () => {
         position="relative"
         display="inline-block"
         sx={{
-          // ✅ NUEVO: Animación de hover para todo el contenedor del logo
           transition: 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
           _hover: {
             transform: 'scale(1.05)',
@@ -186,7 +183,6 @@ export const Navbar = () => {
             },
           },
 
-          // Animación de entrada para los enlaces del navbar
           '@keyframes slideInFromTop': {
             '0%': {
               opacity: 0,
@@ -198,7 +194,6 @@ export const Navbar = () => {
             },
           },
 
-          // ✅ NUEVAS ANIMACIONES para el logo
           '@keyframes letterSlide': {
             '0%': { transform: 'translateY(0px) rotate(0deg)' },
             '25%': { transform: 'translateY(-3px) rotate(1deg)' },
@@ -231,26 +226,18 @@ export const Navbar = () => {
             ...spaceGroteskStyle,
             cursor: 'pointer',
             transition: 'all 0.3s ease',
-            
-            // ✅ CORREGIDO: Efecto de brillo solo en hover, manteniendo color normal
             _hover: {
-              // Solo aplicar el gradiente en hover
               background: 'linear-gradient(90deg, #e9eef1 25%, #ffffff 50%, #e9eef1 75%)',
               backgroundSize: '200% 100%',
               backgroundClip: 'text',
               WebkitBackgroundClip: 'text',
               color: 'transparent',
-              
-              // Activar el brillo que se mueve
               animation: `${shineMove} 0.8s ease-in-out, ${rippleEffect} 0.6s ease-in-out`,
-              
-              // ✅ NUEVO: Animación de letras individuales en hover
               '& .letter': {
                 display: 'inline-block',
                 animation: `${letterSlide} 0.6s ease-in-out`,
               },
               
-              // ✅ NUEVO: Cada letra con un delay diferente para efecto cascada
               '& .letter:nth-of-type(1)': { animationDelay: '0ms' },
               '& .letter:nth-of-type(2)': { animationDelay: '50ms' },
               '& .letter:nth-of-type(3)': { animationDelay: '100ms' },
@@ -262,13 +249,12 @@ export const Navbar = () => {
               '& .letter:nth-of-type(9)': { animationDelay: '400ms' },
             },
 
-            // ✅ NUEVO: Letras preparadas para animación pero invisibles hasta hover
             '& .letter': {
               transition: 'all 0.3s ease',
             }
           }}
         >
-          {/* ✅ NUEVO: Dividir "Bayron AQ" en letras individuales para animación */}
+          {}
           <span className="letter">B</span>
           <span className="letter">a</span>
           <span className="letter">y</span>

@@ -14,7 +14,7 @@ function App() {
     <ChakraProvider theme={theme}>
       <Box position="relative" height="100vh">
         <ParticleBackground />
-        {/* El Navbar ahora está aquí, fuera del contenedor de scroll */}
+        {}
         <Navbar />
         <Box
           id="main-content"
@@ -23,9 +23,9 @@ function App() {
           left="0"
           right="0"
           bottom="0"
-          zIndex={1} // Este zIndex ya no causará conflictos
+          zIndex={1} 
           overflowY="auto"
-          paddingTop="72px" // Añadimos padding para que el contenido no quede debajo del Navbar
+          paddingTop="72px" 
           css={{
             '&::-webkit-scrollbar': {
               width: '8px',
