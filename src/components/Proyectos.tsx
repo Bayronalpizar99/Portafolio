@@ -3,12 +3,12 @@ import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
 import { useInView } from "react-intersection-observer";
 
 // Importar las imágenes
-import posSystemImg from '../assets/POS-System.jpg';
-import greenHouseImg from '../assets/Green-House.jpg';
-import miniCSharpImg from '../assets/Mini-CSharp.jpg';
+import posSystemImg from '../assets/pos-system.jpg';
+import greenHouseImg from '../assets/green-house.jpg';
+import miniCSharpImg from '../assets/mini-csharp.jpg';
 import tankAttackImg from '../assets/Tank-attack.jpg';
-import realTimeStadiumImg from '../assets/Real-Time-Stadium.jpg';
-import laGaletaImg from '../assets/La-Galeta.jpg';
+import realTimeStadiumImg from '../assets/real.jpg';
+import laGaletaImg from '../assets/la-galeta.jpg';
 
 const projects = [
   {
