@@ -24,7 +24,7 @@ const projects = [
     description: "Modern website for rural lodging with a functional booking form, WhatsApp integration, interactive image gallery, location maps, and a complete internationalization system. Responsive design with fluid animations.",
     image: greenHouseImg,
     tags: ["React", "TypeScript", "Chakra UI"],
-    liveUrl: "#", // Se mantiene para el futuro
+    liveUrl: "https://www.vistaverdezarcero.com/", // Se mantiene para el futuro
     repoUrl: "https://github.com/Bayronalpizar99/Casa_Vista_Verde.git",
   },
   {
