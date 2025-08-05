@@ -10,7 +10,6 @@ const spaceGroteskStyle = {
   fontStyle: 'normal',
 };
 
-// ✅ NUEVA ANIMACIÓN: Efecto de deslizamiento de letras
 const letterSlide = keyframes`
   0% { transform: translateY(0px) rotate(0deg); }
   25% { transform: translateY(-3px) rotate(1deg); }
@@ -19,7 +18,6 @@ const letterSlide = keyframes`
   100% { transform: translateY(0px) rotate(0deg); }
 `;
 
-// ✅ NUEVA ANIMACIÓN: Efecto de ondulación
 const rippleEffect = keyframes`
   0% { transform: scale(1); }
   50% { transform: scale(1.05); }
@@ -104,7 +102,7 @@ export const Navbar = () => {
         paddingX={{ base: 4, md: 8 }}
         bg="rgba(1, 15, 24, 0.8)" 
         position="fixed"
-        sx={{ backdropFilter: 'blur(10px)' }} // Efecto "frosted glass"
+        sx={{ backdropFilter: 'blur(10px)' }} 
         width="100%"
         zIndex={1000} 
         boxShadow="0px 4px 20px -7px #04a56b"

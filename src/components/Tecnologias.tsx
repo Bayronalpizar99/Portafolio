@@ -3,11 +3,14 @@ import { keyframes } from "@emotion/react";
 import { useInView } from "react-intersection-observer";
 import {
   FaReact, FaNodeJs, FaPython, FaGitAlt, FaDocker, FaJava,
-  FaBootstrap, FaFigma, FaJira,
+  FaBootstrap, 
+  FaCss3,
+  FaHtml5,
 } from "react-icons/fa";
 import {
-  SiTypescript, SiJavascript, SiPostgresql, SiSupabase,
+  SiTypescript, SiJavascript, SiPostgresql, 
   SiSharp, SiChakraui,
+  SiMysql,
 } from "react-icons/si";
 
 const gentleFloat = keyframes`
@@ -32,11 +35,11 @@ const technologies = [
   { name: "TypeScript", icon: <SiTypescript /> },
   { name: "JavaScript", icon: <SiJavascript /> },
   { name: "PostgreSQL", icon: <SiPostgresql /> },
-  { name: "Supabase", icon: <SiSupabase /> },
+  { name: "Mysql", icon: <SiMysql /> },
   { name: "Chakra UI", icon: <SiChakraui /> },
   { name: "Bootstrap", icon: <FaBootstrap /> },
-  { name: "Figma", icon: <FaFigma /> },
-  { name: "Jira", icon: <FaJira /> },
+  { name: "CSS", icon: <FaCss3 /> },
+  { name: "HTLM", icon: <FaHtml5 /> },
   { name: "Docker", icon: <FaDocker /> },
   { name: "Git", icon: <FaGitAlt /> },
 ];
