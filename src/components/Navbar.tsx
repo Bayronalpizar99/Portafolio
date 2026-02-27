@@ -1,4 +1,4 @@
-import { Flex, HStack, Text, Box, VStack, IconButton, useDisclosure, Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody, DrawerCloseButton, useBreakpointValue } from "@chakra-ui/react";
+import { Flex, HStack, Text, Box, VStack, IconButton, useDisclosure, Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody, DrawerCloseButton, useBreakpointValue, Avatar } from "@chakra-ui/react";
 import { Link } from 'react-scroll';
 import { keyframes } from "@emotion/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
@@ -110,6 +110,20 @@ export const Navbar = () => {
         left="0"
         maxWidth="calc(100% - 8px)"
       >
+        <Flex align="center" gap={3}>
+          <Avatar
+            src="https://files.softicons.com/download/game-icons/battlefield-3-game-icons-by-exhumed/ico/Battlefield%203_3.ico"
+            name="Bayron AQ"
+            size="md"
+            border="2px solid"
+            borderColor="brand.primary"
+            boxShadow="0 0 10px rgba(4, 165, 107, 0.4)"
+            transition="box-shadow 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)"
+            _hover={{
+              boxShadow: '0 0 18px rgba(4, 165, 107, 0.7)',
+              transform: 'scale(1.08)',
+            }}
+          />
         <Box
           position="relative"
           display="inline-block"
@@ -285,10 +299,9 @@ export const Navbar = () => {
             <span className="letter">o</span>
             <span className="letter">n</span>
             <span className="letter">&nbsp;</span>
-            <span className="letter">A</span>
-            <span className="letter">Q</span>
           </Text>
         </Box>
+        </Flex>
 
         {/* Desktop Navigation */}
         <HStack spacing={8} display={{ base: "none", md: "flex" }}>

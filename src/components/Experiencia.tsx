@@ -73,11 +73,9 @@ const experiences: Experience[] = [
 const ExperienceCard = ({
   exp,
   index,
-  isLast,
 }: {
   exp: Experience;
   index: number;
-  isLast: boolean;
 }) => {
   const { ref, inView } = useInView({ threshold: 0.15, triggerOnce: false });
 
@@ -103,21 +101,19 @@ const ExperienceCard = ({
           mt="4px"
         />
         {/* Línea vertical */}
-        {!isLast && (
-          <Box
-            w="2px"
-            flex="1"
-            minH="60px"
-            bg="rgba(255,255,255,0.08)"
-            mt={2}
-          />
-        )}
+        <Box
+          w="2px"
+          flex="1"
+          minH="60px"
+          bg="rgba(255,255,255,0.08)"
+          mt={2}
+        />
       </Flex>
 
       {/* ── Tarjeta de contenido ── */}
       <Box
         flex="1"
-        mb={isLast ? 0 : 10}
+        mb={10}
         p={6}
         bg="rgba(4, 165, 107, 0.04)"
         border="1px solid"
@@ -309,7 +305,6 @@ export const Experiencia = () => {
               key={index}
               exp={exp}
               index={index}
-              isLast={index === experiences.length - 1}
             />
           ))}
         </VStack>
