@@ -1,7 +1,8 @@
-import { Flex, HStack, Text, Box, VStack, IconButton, useDisclosure, Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody, DrawerCloseButton, useBreakpointValue, Avatar } from "@chakra-ui/react";
+import { Flex, HStack, Box, VStack, IconButton, useDisclosure, Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody, DrawerCloseButton, useBreakpointValue, Avatar } from "@chakra-ui/react";
 import { Link } from 'react-scroll';
 import { keyframes } from "@emotion/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
+import icon from '../assets/icon.ico';
 
 const spaceGroteskStyle = {
   fontFamily: '"Space Grotesk", system-ui, sans-serif',
@@ -10,23 +11,8 @@ const spaceGroteskStyle = {
   fontStyle: 'normal',
 };
 
-const letterSlide = keyframes`
-  0% { transform: translateY(0px) rotate(0deg); }
-  25% { transform: translateY(-3px) rotate(1deg); }
-  50% { transform: translateY(-6px) rotate(-1deg); }
-  75% { transform: translateY(-3px) rotate(0.5deg); }
-  100% { transform: translateY(0px) rotate(0deg); }
-`;
-
-const rippleEffect = keyframes`
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-`;
-
-const shineMove = keyframes`
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
+const spinRing = keyframes`
+  to { transform: rotate(360deg); }
 `;
 
 export const Navbar = () => {
@@ -110,198 +96,48 @@ export const Navbar = () => {
         left="0"
         maxWidth="calc(100% - 8px)"
       >
-        <Flex align="center" gap={3}>
-          <Avatar
-            src="https://files.softicons.com/download/game-icons/battlefield-3-game-icons-by-exhumed/ico/Battlefield%203_3.ico"
-            name="Bayron AQ"
-            size="md"
-            border="2px solid"
-            borderColor="brand.primary"
-            boxShadow="0 0 10px rgba(4, 165, 107, 0.4)"
-            transition="box-shadow 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)"
-            _hover={{
-              boxShadow: '0 0 18px rgba(4, 165, 107, 0.7)',
-              transform: 'scale(1.08)',
-            }}
-          />
         <Box
           position="relative"
-          display="inline-block"
-          sx={{
-            transition: 'transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
-            _hover: {
-              transform: 'scale(1.05)',
-            },
-            
-            '&::before': {
-              content: '""',
-              position: 'absolute',
-              bottom: '-4px',
-              left: '0',
-              right: '0',
-              height: '3px',
-              background: 'linear-gradient(90deg, transparent, #04a56b80, #05c280, #04a56b80, transparent)',
-              backgroundSize: '200% 100%',
-              borderRadius: '2px',
-              zIndex: -2, 
-              animation: 'glowing-underline 6s ease-in-out infinite',
-              filter: 'blur(1px)',
-              pointerEvents: 'none',
-            },
-            '&::after': {
-              content: '""',
-              position: 'absolute',
-              bottom: '-2px',
-              left: '0',
-              right: '0',
-              height: '2px',
-              background: 'linear-gradient(90deg, transparent, #04a56b, #05c280, #02d68f, #04a56b, transparent)',
-              backgroundSize: '200% 100%',
-              borderRadius: '1px',
-              zIndex: -2, 
-              animation: 'glowing-underline 6s ease-in-out infinite reverse',
-              boxShadow: '0 0 8px #04a56b40, 0 0 16px #04a56b20',
-              pointerEvents: 'none', 
-            },
-
-            '& > span::before': {
-              content: '""',
-              position: 'absolute',
-              top: '-4px',
-              left: '0',
-              right: '0',
-              height: '3px',
-              background: 'linear-gradient(90deg, transparent, #04a56b80, #05c280, #04a56b80, transparent)',
-              backgroundSize: '200% 100%',
-              borderRadius: '2px',
-              zIndex: -2, 
-              animation: 'glowing-overline 6s ease-in-out infinite',
-              animationDelay: '3s', 
-              filter: 'blur(1px)',
-              pointerEvents: 'none', 
-            },
-            '& > span::after': {
-              content: '""',
-              position: 'absolute',
-              top: '-2px',
-              left: '0',
-              right: '0',
-              height: '2px',
-              background: 'linear-gradient(90deg, transparent, #04a56b, #05c280, #02d68f, #04a56b, transparent)',
-              backgroundSize: '200% 100%',
-              borderRadius: '1px',
-              zIndex: -2, 
-              animation: 'glowing-overline 6s ease-in-out infinite reverse',
-              animationDelay: '3s', 
-              boxShadow: '0 0 8px #04a56b40, 0 0 16px #04a56b20',
-              pointerEvents: 'none', 
-            },
-
-            '@keyframes glowing-underline': {
-              '0%': {
-                backgroundPosition: '-100% 0%',
-              },
-              '50%': {
-                backgroundPosition: '100% 0%',
-              },
-              '100%': {
-                backgroundPosition: '200% 0%',
-              },
-            },
-
-            '@keyframes glowing-overline': {
-              '0%': {
-                backgroundPosition: '200% 0%',
-              },
-              '50%': {
-                backgroundPosition: '-100% 0%',
-              },
-              '100%': {
-                backgroundPosition: '-200% 0%',
-              },
-            },
-
-            '@keyframes slideInFromTop': {
-              '0%': {
-                opacity: 0,
-                transform: 'translateY(-30px) scale(0.8)',
-              },
-              '100%': {
-                opacity: 1,
-                transform: 'translateY(0) scale(1)',
-              },
-            },
-
-            '@keyframes letterSlide': {
-              '0%': { transform: 'translateY(0px) rotate(0deg)' },
-              '25%': { transform: 'translateY(-3px) rotate(1deg)' },
-              '50%': { transform: 'translateY(-6px) rotate(-1deg)' },
-              '75%': { transform: 'translateY(-3px) rotate(0.5deg)' },
-              '100%': { transform: 'translateY(0px) rotate(0deg)' },
-            },
-
-            '@keyframes rippleEffect': {
-              '0%': { transform: 'scale(1)' },
-              '50%': { transform: 'scale(1.05)' },
-              '100%': { transform: 'scale(1)' },
-            },
-
-            '@keyframes shineMove': {
-              '0%': { backgroundPosition: '-200% center' },
-              '100%': { backgroundPosition: '200% center' },
-            },
-          }}
+          display="inline-flex"
+          alignItems="center"
+          justifyContent="center"
+          transition="transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)"
+          _hover={{ transform: 'scale(1.1)' }}
+          cursor="pointer"
         >
-          <Text
-            as="span"
-            fontSize={{ base: "lg", md: "xl" }}
-            fontWeight="bold"
-            color="brand.text"
-            position="relative"
-            zIndex={2} 
-            display="inline-block"
+          {/* Blurred outer glow */}
+          <Box
+            position="absolute"
+            inset="-3px"
+            borderRadius="full"
             sx={{
-              ...spaceGroteskStyle,
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              _hover: {
-                background: 'linear-gradient(90deg, #e9eef1 25%, #ffffff 50%, #e9eef1 75%)',
-                backgroundSize: '200% 100%',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                color: 'transparent',
-                animation: `${shineMove} 0.8s ease-in-out, ${rippleEffect} 0.6s ease-in-out`,
-                '& .letter': {
-                  display: 'inline-block',
-                  animation: `${letterSlide} 0.6s ease-in-out`,
-                },
-                
-                '& .letter:nth-of-type(1)': { animationDelay: '0ms' },
-                '& .letter:nth-of-type(2)': { animationDelay: '50ms' },
-                '& .letter:nth-of-type(3)': { animationDelay: '100ms' },
-                '& .letter:nth-of-type(4)': { animationDelay: '150ms' },
-                '& .letter:nth-of-type(5)': { animationDelay: '200ms' },
-                '& .letter:nth-of-type(6)': { animationDelay: '250ms' },
-                '& .letter:nth-of-type(7)': { animationDelay: '300ms' },
-                '& .letter:nth-of-type(8)': { animationDelay: '350ms' },
-                '& .letter:nth-of-type(9)': { animationDelay: '400ms' },
-              },
-
-              '& .letter': {
-                transition: 'all 0.3s ease',
-              }
+              background: 'conic-gradient(from 0deg, transparent 0deg, #04a56b 70deg, #05c280 140deg, #02d68f 180deg, transparent 230deg)',
+              animation: `${spinRing} 2.5s linear infinite`,
             }}
-          >
-            <span className="letter">B</span>
-            <span className="letter">a</span>
-            <span className="letter">y</span>
-            <span className="letter">r</span>
-            <span className="letter">o</span>
-            <span className="letter">n</span>
-            <span className="letter">&nbsp;</span>
-          </Text>
+            filter="blur(5px)"
+            opacity={0.8}
+            zIndex={0}
+          />
+          {/* Sharp ring */}
+          <Box
+            position="absolute"
+            inset="-2px"
+            borderRadius="full"
+            sx={{
+              background: 'conic-gradient(from 0deg, transparent 0deg, #04a56b 70deg, #05c280 140deg, #02d68f 180deg, transparent 230deg)',
+              animation: `${spinRing} 2.5s linear infinite`,
+            }}
+            zIndex={0}
+          />
+          <Avatar
+            src={icon}
+            name="Bayron AQ"
+            size="md"
+            border="2px solid #010f18"
+            position="relative"
+            zIndex={1}
+          />
         </Box>
-        </Flex>
 
         {/* Desktop Navigation */}
         <HStack spacing={8} display={{ base: "none", md: "flex" }}>
