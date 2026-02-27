@@ -5,6 +5,7 @@ import { SobreMi } from "./components/SobreMi";
 import { Tecnologias } from "./components/Tecnologias";
 import { Proyectos } from "./components/Proyectos";
 import { Certificaciones } from "./components/Certificaciones";
+import { Experiencia } from "./components/Experiencia";
 import { Contacto } from "./components/Contacto";
 import { Footer } from "./components/Footer";
 import theme from './theme';
@@ -49,6 +50,7 @@ function App() {
         >
           <main>
             <SobreMi />
+            <Experiencia />
             <Tecnologias />
             <Proyectos />
             <Certificaciones />

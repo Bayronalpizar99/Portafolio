@@ -14,16 +14,16 @@ import {
 } from "react-icons/si";
 
 const gentleFloat = keyframes`
-  0% { transform: translateY(0px) rotate(0deg); }
-  33% { transform: translateY(-4px) rotate(1deg); }
-  66% { transform: translateY(-2px) rotate(-0.5deg); }
-  100% { transform: translateY(0px) rotate(0deg); }
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-5px); }
+  100% { transform: translateY(0px); }
 `;
 
-const subtlePulse = keyframes`
-  0% { box-shadow: 0 0 0 0 rgba(4, 165, 107, 0.1); }
-  50% { box-shadow: 0 0 0 8px rgba(4, 165, 107, 0.05); }
-  100% { box-shadow: 0 0 0 0 rgba(4, 165, 107, 0.1); }
+const iconPop = keyframes`
+  0%   { transform: scale(1) rotate(0deg); }
+  40%  { transform: scale(1.15) rotate(-6deg); }
+  70%  { transform: scale(1.1)  rotate(4deg); }
+  100% { transform: scale(1)   rotate(0deg); }
 `;
 
 const technologies = [
@@ -50,8 +50,8 @@ const TechCard = ({ tech, index }: { tech: any, index: number }) => {
     triggerOnce: false, 
   });
 
-  const floatDuration = 2.5 + (index % 3) * 0.5; 
-  const floatDelay = index * 150; 
+  const floatDuration = 3 + (index % 3) * 0.6;
+  const floatDelay = (index * 200) % 1200;
 
   return (
     <VStack
@@ -60,75 +60,46 @@ const TechCard = ({ tech, index }: { tech: any, index: number }) => {
       p={6}
       bg="rgba(4, 165, 107, 0.05)"
       border="1px solid"
-      borderColor="rgba(4, 165, 107, 0.2)"
+      borderColor="rgba(4, 165, 107, 0.15)"
       borderRadius="xl"
       position="relative"
-      overflow="hidden"
-      transition="transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), 
-                 background-color 0.2s ease,
-                 border-color 0.2s ease,
-                 box-shadow 0.25s ease"
-      
+      cursor="pointer"
+      role="group"
       style={{
         opacity: inView ? 1 : 0,
-        transform: inView ? 'translateY(0px) scale(1) rotate(0deg)' : 'translateY(30px) scale(0.8) rotate(-5deg)',
-        transition: `opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${index * 100}ms, 
-                    transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) ${index * 100}ms`,
+        transform: inView ? 'translateY(0px) scale(1)' : 'translateY(28px) scale(0.85)',
+        transition: `opacity 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) ${index * 90}ms,
+                     transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) ${index * 90}ms`,
       }}
-      
-
-      animation={`${gentleFloat} ${floatDuration}s ease-in-out ${floatDelay}ms infinite, ${subtlePulse} 4s ease-in-out infinite ${floatDelay + 1000}ms`}
-      
+      animation={`${gentleFloat} ${floatDuration}s ease-in-out ${floatDelay}ms infinite`}
+      transition="border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease"
       _hover={{
-        transform: 'translateY(-8px) scale(1.08) rotate(2deg)',
-        bg: 'rgba(4, 165, 107, 0.2)',
+        bg: 'rgba(4, 165, 107, 0.12)',
         borderColor: 'brand.primary',
-        boxShadow: '0 12px 30px rgba(4, 165, 107, 0.4), 0 0 20px rgba(4, 165, 107, 0.2)',
-        zIndex: 10,
-        '&::before': {
-          left: '100%',
-        }
+        boxShadow: '0 8px 24px rgba(4, 165, 107, 0.25)',
+        animation: 'none',
+        transform: 'translateY(-6px) scale(1.06)',
       }}
-      
       _active={{
-        transform: 'scale(0.95)',
-        transition: 'transform 0.1s ease',
-      }}
-      
-      cursor="pointer"
-      _before={{
-        content: '""',
-        position: 'absolute',
-        top: 0,
-        left: '-100%',
-        width: '100%',
-        height: '100%',
-        background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)',
-        transition: 'left 0.5s ease',
-        zIndex: 1,
+        transform: 'scale(0.97)',
       }}
     >
-      <Box 
-        color="brand.primary" 
+      <Box
+        color="brand.primary"
         fontSize="3.5rem"
-        position="relative"
-        zIndex={2}
-        transition="transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)"
-        sx={{
-          'VStack:hover &': {
-            transform: 'rotate(5deg) scale(1.1)',
-          }
+        _groupHover={{
+          animation: `${iconPop} 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards`,
         }}
       >
         {tech.icon}
       </Box>
-      
-      <Text 
+
+      <Text
         fontWeight="bold"
         color="brand.text"
-        position="relative"
-        zIndex={2}
         fontSize="md"
+        transition="color 0.2s ease"
+        _groupHover={{ color: 'brand.primary' }}
       >
         {tech.name}
       </Text>

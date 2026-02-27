@@ -293,6 +293,7 @@ export const Navbar = () => {
         {/* Desktop Navigation */}
         <HStack spacing={8} display={{ base: "none", md: "flex" }}>
           <NavLink to="sobre-mi" delay={0.2}>About me</NavLink>
+          <NavLink to="experiencia" delay={0.3}>Experience</NavLink>
           <NavLink to="tecnologias" delay={0.4}>Technologies</NavLink>
           <NavLink to="proyectos" delay={0.6}>Projects</NavLink>
           <NavLink to="certificaciones" delay={0.8}>Certifications</NavLink>
@@ -349,6 +350,17 @@ export const Navbar = () => {
                 transition="all 0.2s ease"
               >
                 <NavLink to="sobre-mi">About me</NavLink>
+              </Box>
+
+              <Box
+                fontSize="lg"
+                py={3}
+                px={2}
+                borderRadius="md"
+                _hover={{ bg: "rgba(4, 165, 107, 0.1)" }}
+                transition="all 0.2s ease"
+              >
+                <NavLink to="experiencia">Experience</NavLink>
               </Box>
               
               <Box 
