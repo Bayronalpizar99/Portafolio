@@ -146,7 +146,7 @@ const ExperienceCard = ({
               as="h3"
               size="md"
               color="brand.text"
-              sx={{ fontFamily: '"Space Grotesk", system-ui, sans-serif' }}
+              sx={{ fontFamily: '"Syne", "Space Grotesk", sans-serif' }}
             >
               {exp.role}
             </Heading>
@@ -263,13 +263,13 @@ export const Experiencia = () => {
             />
             <Heading
               as="h2"
-              size="2xl"
+              fontSize={{ base: "3xl", md: "4xl" }}
               color="brand.text"
               opacity={inView ? 1 : 0}
               transform={inView ? "translateY(0)" : "translateY(20px)"}
               transition="all 0.6s ease-out"
               sx={{
-                fontFamily: '"Space Grotesk", system-ui, sans-serif',
+                fontFamily: '"Syne", "Space Grotesk", sans-serif',
                 fontWeight: "700",
               }}
             >

@@ -1,34 +1,45 @@
-import { Box, Heading, VStack, Text, Image, SimpleGrid, Icon, Link } from "@chakra-ui/react";
+import { Box, Heading, VStack, Text, Image, SimpleGrid, Icon, Link, Flex, HStack } from "@chakra-ui/react";
+import { keyframes } from "@emotion/react";
 import perfilImg from '../assets/perfil.jpeg';
-import { FaUsers, FaLightbulb, FaCode, FaSyncAlt, FaDownload } from "react-icons/fa";
+import { FaUsers, FaLightbulb, FaCode, FaSyncAlt, FaDownload, FaArrowRight } from "react-icons/fa";
 import { useInView } from 'react-intersection-observer';
 import { useState, useEffect } from 'react';
+
+const orbitGlow = keyframes`
+  0% { box-shadow: 0 0 20px rgba(4, 165, 107, 0.15), inset 0 0 20px rgba(4, 165, 107, 0.05); }
+  50% { box-shadow: 0 0 40px rgba(4, 165, 107, 0.25), inset 0 0 30px rgba(4, 165, 107, 0.08); }
+  100% { box-shadow: 0 0 20px rgba(4, 165, 107, 0.15), inset 0 0 20px rgba(4, 165, 107, 0.05); }
+`;
+
+const subtlePulse = keyframes`
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+`;
 
 export const SobreMi = () => {
   const competencies = [
     {
-      icon: <FaUsers size="2.5em" />,
+      icon: <FaUsers />,
       title: "Teamwork",
       description: "I collaborate effectively in multidisciplinary teams using agile methodologies."
     },
     {
-      icon: <FaLightbulb size="2.5em" />,
+      icon: <FaLightbulb />,
       title: "Problem Solving",
       description: "I analyze and break down complex problems to find efficient and scalable solutions."
     },
     {
-      icon: <FaCode size="2.5em" />,
+      icon: <FaCode />,
       title: "Clean Code",
       description: "I implement readable, maintainable, and well-documented code following best practices."
     },
     {
-      icon: <FaSyncAlt size="2.5em" />,
+      icon: <FaSyncAlt />,
       title: "Continuous Learning",
       description: "I am a self-learner and I constantly keep myself updated with the new technologies in the industry."
     }
   ];
 
-  // Estados para controlar las animaciones
   const [animations, setAnimations] = useState({
     heading: false,
     image: false,
@@ -37,11 +48,9 @@ export const SobreMi = () => {
     button: false
   });
 
-  // Estados especiales para la imagen (evitar parpadeo)
   const [imageHasBeenVisible, setImageHasBeenVisible] = useState(false);
   const [imageGlowActive, setImageGlowActive] = useState(false);
 
-  // Configuración de IntersectionObserver optimizada
   const intersectionConfig = {
     threshold: 0.3,
     triggerOnce: false,
@@ -62,7 +71,6 @@ export const SobreMi = () => {
   });
   const { ref: buttonRef, inView: buttonInView } = useInView(intersectionConfig);
 
-  // Manejar animaciones normales (se resetean cada vez)
   useEffect(() => {
     setAnimations(prev => ({ ...prev, heading: headingInView }));
   }, [headingInView]);
@@ -79,42 +87,34 @@ export const SobreMi = () => {
     setAnimations(prev => ({ ...prev, button: buttonInView }));
   }, [buttonInView]);
 
-  // Manejar animación especial de la imagen (sin parpadeo)
   useEffect(() => {
     if (imageInView) {
-      // Si la imagen está visible, activar animación
       setAnimations(prev => ({ ...prev, image: true }));
       setImageGlowActive(true);
-      
-      // Marcar que la imagen ha sido visible al menos una vez
       if (!imageHasBeenVisible) {
         setImageHasBeenVisible(true);
       }
     } else {
-      // Si la imagen no está visible
       if (imageHasBeenVisible) {
-        // Si ya ha sido visible antes, mantener visible pero sin glow
         setAnimations(prev => ({ ...prev, image: true }));
         setImageGlowActive(false);
       } else {
-        // Si nunca ha sido visible, mantener oculta
         setAnimations(prev => ({ ...prev, image: false }));
         setImageGlowActive(false);
       }
     }
   }, [imageInView, imageHasBeenVisible]);
 
-  const createFadeInStyle = (shouldShow: boolean, delay: string = '0s') => ({
-    opacity: shouldShow ? 1 : 0,
-    transform: shouldShow ? 'translateY(0)' : 'translateY(20px)',
-    transition: `opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}, transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}`
+  const createFadeIn = (show: boolean, delay = '0s') => ({
+    opacity: show ? 1 : 0,
+    transform: show ? 'translateY(0)' : 'translateY(24px)',
+    transition: `opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${delay}, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${delay}`
   });
 
-  // Estilo especial para la imagen (sin reset de posición)
-  const createImageStyle = (shouldShow: boolean, delay: string = '0s') => ({
-    opacity: shouldShow ? 1 : (imageHasBeenVisible ? 1 : 0),
-    transform: shouldShow ? 'translateY(0)' : (imageHasBeenVisible ? 'translateY(0)' : 'translateY(20px)'),
-    transition: `opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}, transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${delay}`
+  const createImageStyle = (show: boolean, delay = '0s') => ({
+    opacity: show ? 1 : (imageHasBeenVisible ? 1 : 0),
+    transform: show ? 'translateY(0)' : (imageHasBeenVisible ? 'translateY(0)' : 'translateY(20px)'),
+    transition: `opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${delay}, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${delay}`
   });
 
   return (
@@ -122,192 +122,276 @@ export const SobreMi = () => {
       as="section"
       id="sobre-mi"
       minHeight="100vh"
-      pt="60px"
-      pb="80px"
-      px={8}
+      pt={{ base: "60px", md: "80px" }}
+      pb="100px"
+      px={{ base: 6, md: 10 }}
       color="white"
       display="flex"
       alignItems="center"
       justifyContent="center"
       position="relative"
     >
-      <VStack spacing={12} maxWidth="900px" textAlign="center">
-        <Heading
-          ref={headingRef}
-          as="h2"
-          size="2xl"
-          color="brand.text"
-          sx={{ fontFamily: '"Space Grotesk", system-ui, sans-serif', fontWeight: '700' }}
-          style={createFadeInStyle(animations.heading)}
-        >
-          About Me
-        </Heading>
+      <VStack spacing={0} maxWidth="1000px" width="100%">
 
-        <Box
-          ref={imageRef}
-          position="relative"
-          display="inline-block"
-          sx={{
-            ...createImageStyle(animations.image, '0.2s'),
-            '&::before': {
-              content: '""',
-              position: 'absolute',
-              top: '-6px',
-              left: '-6px',
-              right: '-6px',
-              bottom: '-6px',
-              borderRadius: '50%',
-              background: 'linear-gradient(135deg, rgba(4,165,107,0.2), rgba(2,214,143,0.2))',
-              animation: imageGlowActive ? 'profileGlow 6s ease-in-out infinite' : 'none',
-              filter: 'blur(1.5px)',
-              zIndex: -1,
-              opacity: imageGlowActive ? 1 : 0,
-              transition: 'opacity 0.3s ease'
-            },
-            '&::after': {
-              content: '""',
-              position: 'absolute',
-              top: '-3px',
-              left: '-3px',
-              right: '-3px',
-              bottom: '-3px',
-              borderRadius: '50%',
-              background: 'linear-gradient(135deg, rgba(4,165,107,0.1), rgba(2,214,143,0.1))',
-              animation: imageGlowActive ? 'profileGlow 6s ease-in-out infinite reverse' : 'none',
-              zIndex: -1,
-              opacity: imageGlowActive ? 1 : 0,
-              transition: 'opacity 0.3s ease'
-            },
-            '@keyframes profileGlow': {
-              '0%': { backgroundPosition: '0% 50%' },
-              '50%': { backgroundPosition: '100% 50%' },
-              '100%': { backgroundPosition: '0% 50%' }
-            },
-            transition: 'transform 0.3s ease',
-            _hover: { transform: 'scale(1.03)' },
-            backfaceVisibility: 'hidden',
-            perspective: '1000px',
-            willChange: 'transform, opacity'
-          }}
+        {/* Hero Area — asymmetric layout */}
+        <Flex
+          direction={{ base: "column", md: "row" }}
+          align="center"
+          justify="space-between"
+          gap={{ base: 10, md: 16 }}
+          width="100%"
+          mb={20}
         >
-          <Image
-            src={perfilImg}
-            alt="Profile picture"
-            boxSize="200px"
-            borderRadius="full"
-            objectFit="cover"
-            position="relative"
-            zIndex={1}
-            border="4px solid"
-            borderColor="brand.background"
-            boxShadow={imageGlowActive ? "0 0 12px rgba(4, 165, 107, 0.2)" : "0 0 8px rgba(4, 165, 107, 0.1)"}
-            sx={{
-              backfaceVisibility: 'hidden',
-              perspective: '1000px',
-              willChange: 'transform',
-              transition: 'box-shadow 0.3s ease'
-            }}
-          />
-        </Box>
-
-        <Text
-          ref={textRef}
-          fontSize="lg"
-          lineHeight="1.8"
-          color="gray.300"
-          textAlign="center"
-          maxWidth="600px"
-          sx={{ fontFamily: '"Inter", system-ui, sans-serif' }}
-          style={createFadeInStyle(animations.text, '0.4s')}
-        >
-          Full-stack developer passionate about building innovative, high-performance web applications. I enjoy exploring new technologies by working on projects to master tools that allow me to build amazing websites.
-        </Text>
-
-        <VStack ref={competenciesRef} spacing={8} width="100%" pt={8}>
-          <Heading
-            as="h2"
-            size="2xl"
-            color="brand.text"
-            sx={{
-              fontFamily: '"Space Grotesk", system-ui, sans-serif',
-              fontWeight: '700',
-            }}
-            style={createFadeInStyle(animations.competencies)}
+          {/* Left: Text */}
+          <VStack
+            align={{ base: "center", md: "flex-start" }}
+            textAlign={{ base: "center", md: "left" }}
+            spacing={6}
+            flex="1"
           >
-            Core Competencies
-          </Heading>
-          
-          <SimpleGrid columns={[1, 2, 2]} spacing={6} width="100%">
+            <Box ref={headingRef} style={createFadeIn(animations.heading)}>
+              <Text
+                fontSize="sm"
+                fontFamily='"Space Grotesk", sans-serif'
+                fontWeight="500"
+                color="#04a56b"
+                letterSpacing="3px"
+                textTransform="uppercase"
+                mb={3}
+              >
+                Full-Stack Developer
+              </Text>
+              <Heading
+                as="h1"
+                fontSize={{ base: "4xl", md: "5xl", lg: "6xl" }}
+                color="brand.text"
+                lineHeight="1.05"
+                sx={{
+                  fontFamily: '"Syne", "Space Grotesk", sans-serif',
+                  fontWeight: '800',
+                }}
+              >
+                About
+                <br />
+                <Text
+                  as="span"
+                  bgGradient="linear(135deg, #04a56b 0%, #4388a2 50%, #05c280 100%)"
+                  bgClip="text"
+                >
+                  Me
+                </Text>
+              </Heading>
+            </Box>
+
+            <Text
+              ref={textRef}
+              fontSize={{ base: "md", md: "lg" }}
+              lineHeight="1.9"
+              color="gray.400"
+              maxWidth="480px"
+              sx={{ fontFamily: '"Space Grotesk", system-ui, sans-serif', fontWeight: '400' }}
+              style={createFadeIn(animations.text, '0.2s')}
+            >
+              Full-stack developer passionate about building innovative, high-performance web applications. I enjoy exploring new technologies by working on projects to master tools that allow me to build amazing websites.
+            </Text>
+
+            <Box
+              ref={buttonRef}
+              pt={2}
+              style={createFadeIn(animations.button, '0.4s')}
+            >
+              <Link
+                href="/Curriculum_Bayron_Alpizar_Quesada.pdf"
+                download="Curriculum_Bayron_Alpizar_Quesada.pdf"
+                _hover={{ textDecoration: 'none' }}
+              >
+                <HStack
+                  spacing={3}
+                  px={6}
+                  py={3}
+                  borderRadius="full"
+                  border="1px solid rgba(4, 165, 107, 0.3)"
+                  bg="rgba(4, 165, 107, 0.06)"
+                  color="#04a56b"
+                  fontFamily='"Space Grotesk", sans-serif'
+                  fontWeight="600"
+                  fontSize="sm"
+                  cursor="pointer"
+                  transition="all 0.35s cubic-bezier(0.16, 1, 0.3, 1)"
+                  role="group"
+                  _hover={{
+                    bg: "rgba(4, 165, 107, 0.12)",
+                    borderColor: "#04a56b",
+                    transform: "translateY(-2px)",
+                    boxShadow: "0 8px 25px -8px rgba(4, 165, 107, 0.35)",
+                  }}
+                >
+                  <Icon as={FaDownload} fontSize="xs" />
+                  <Text>View my resume</Text>
+                  <Icon
+                    as={FaArrowRight}
+                    fontSize="xs"
+                    transition="transform 0.3s ease"
+                    _groupHover={{ transform: "translateX(3px)" }}
+                  />
+                </HStack>
+              </Link>
+            </Box>
+          </VStack>
+
+          {/* Right: Profile Image */}
+          <Box
+            ref={imageRef}
+            position="relative"
+            flexShrink={0}
+            sx={createImageStyle(animations.image, '0.3s')}
+          >
+            {/* Outer decorative ring */}
+            <Box
+              position="absolute"
+              top="-16px"
+              left="-16px"
+              right="-16px"
+              bottom="-16px"
+              borderRadius="full"
+              border="1px solid rgba(4, 165, 107, 0.12)"
+              animation={imageGlowActive ? `${subtlePulse} 4s ease-in-out infinite` : 'none'}
+            />
+            {/* Diagonal accent line */}
+            <Box
+              position="absolute"
+              top="-24px"
+              right="-24px"
+              w="48px"
+              h="48px"
+              borderRight="2px solid rgba(4, 165, 107, 0.3)"
+              borderTop="2px solid rgba(4, 165, 107, 0.3)"
+              borderRadius="0 8px 0 0"
+              opacity={imageGlowActive ? 1 : 0}
+              transition="opacity 0.5s ease"
+            />
+            <Box
+              position="absolute"
+              bottom="-24px"
+              left="-24px"
+              w="48px"
+              h="48px"
+              borderLeft="2px solid rgba(4, 165, 107, 0.3)"
+              borderBottom="2px solid rgba(4, 165, 107, 0.3)"
+              borderRadius="0 0 0 8px"
+              opacity={imageGlowActive ? 1 : 0}
+              transition="opacity 0.5s ease"
+            />
+
+            <Box
+              borderRadius="full"
+              overflow="hidden"
+              animation={imageGlowActive ? `${orbitGlow} 5s ease-in-out infinite` : 'none'}
+              transition="box-shadow 0.5s ease"
+              border="3px solid rgba(4, 165, 107, 0.2)"
+              _hover={{ transform: 'scale(1.03)' }}
+              sx={{
+                transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease',
+              }}
+            >
+              <Image
+                src={perfilImg}
+                alt="Profile picture"
+                boxSize={{ base: "200px", md: "260px" }}
+                objectFit="cover"
+              />
+            </Box>
+          </Box>
+        </Flex>
+
+        {/* Competencies Section */}
+        <VStack ref={competenciesRef} spacing={10} width="100%">
+          <VStack spacing={3}>
+            <Heading
+              as="h2"
+              fontSize={{ base: "3xl", md: "4xl" }}
+              color="brand.text"
+              sx={{
+                fontFamily: '"Syne", "Space Grotesk", sans-serif',
+                fontWeight: '700',
+              }}
+              style={createFadeIn(animations.competencies)}
+            >
+              Core Competencies
+            </Heading>
+            <Box
+              w={animations.competencies ? "50px" : "0px"}
+              h="2px"
+              bg="brand.primary"
+              borderRadius="full"
+              transition="width 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s"
+              boxShadow="0 0 8px rgba(4, 165, 107, 0.4)"
+            />
+          </VStack>
+
+          <SimpleGrid columns={[1, 2, 2, 4]} spacing={5} width="100%">
             {competencies.map((comp, index) => (
               <VStack
                 key={index}
                 spacing={4}
                 p={6}
-                bg="rgba(67, 136, 162, 0.05)"
-                border="1px solid"
-                borderColor="rgba(67, 136, 162, 0.2)"
-                borderRadius="xl"
-                style={createFadeInStyle(animations.competencies, `${0.2 + index * 0.15}s`)}
-                sx={{
-                  backfaceVisibility: 'hidden',
-                  perspective: '1000px',
-                  willChange: 'transform'
-                }}
+                bg="rgba(4, 165, 107, 0.03)"
+                border="1px solid rgba(4, 165, 107, 0.08)"
+                borderRadius="2xl"
+                position="relative"
+                overflow="hidden"
+                style={createFadeIn(animations.competencies, `${0.15 + index * 0.1}s`)}
+                transition="all 0.35s cubic-bezier(0.16, 1, 0.3, 1)"
                 _hover={{
-                  transform: 'translateY(-5px)',
-                  bg: 'rgba(4, 165, 107, 0.1)',
-                  borderColor: 'brand.primary',
-                  boxShadow: '0 7px 20px rgba(4, 165, 107, 0.2)',
+                  transform: 'translateY(-6px)',
+                  bg: 'rgba(4, 165, 107, 0.07)',
+                  borderColor: 'rgba(4, 165, 107, 0.25)',
+                  boxShadow: '0 12px 35px -10px rgba(4, 165, 107, 0.2)',
+                }}
+                _before={{
+                  content: '""',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: '2px',
+                  background: 'linear-gradient(90deg, transparent, #04a56b, transparent)',
+                  opacity: 0,
+                  transition: 'opacity 0.3s ease',
+                }}
+                sx={{
+                  '&:hover::before': { opacity: 1 },
                 }}
               >
-                <Box color="brand.primary">{comp.icon}</Box>
-                <Heading as="h4" size="md" color="brand.text">{comp.title}</Heading>
-                <Text color="gray.300" fontSize="sm" textAlign="center">{comp.description}</Text>
+                <Box
+                  color="brand.primary"
+                  fontSize="2xl"
+                  p={3}
+                  borderRadius="xl"
+                  bg="rgba(4, 165, 107, 0.06)"
+                >
+                  {comp.icon}
+                </Box>
+                <Heading
+                  as="h4"
+                  size="sm"
+                  color="brand.text"
+                  fontFamily='"Space Grotesk", sans-serif'
+                  fontWeight="600"
+                >
+                  {comp.title}
+                </Heading>
+                <Text
+                  color="gray.500"
+                  fontSize="xs"
+                  textAlign="center"
+                  lineHeight="1.7"
+                >
+                  {comp.description}
+                </Text>
               </VStack>
             ))}
           </SimpleGrid>
-
-          <Box 
-            ref={buttonRef}
-            pt={6}
-            style={createFadeInStyle(animations.button, '0.8s')}
-          >
-            <Link
-              href="/Currículum_Bayron_Alpízar_Quesada.pdf"
-              download="Currículum_Bayron_Alpízar_Quesada.pdf"
-              fontSize="lg"
-              fontWeight="700"
-              color="brand.primary"
-              cursor="pointer"
-              display="inline-flex"
-              alignItems="center"
-              gap={3}
-              px={4}
-              py={3}
-              borderRadius="lg"
-              border="2px solid transparent"
-              position="relative" 
-              transition="all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)"
-              sx={{
-                fontFamily: '"Space Grotesk", system-ui, sans-serif',
-                willChange: 'transform, color, border-color, background-color',
-                transform: 'translate3d(0, 0, 0)',
-                backfaceVisibility: 'hidden',
-                perspective: '1000px'
-              }}
-              _hover={{
-                textDecoration: 'none', 
-                color: '#02d68f',
-                borderColor: '#04a56b',
-                backgroundColor: 'rgba(4, 165, 107, 0.1)',
-                transform: 'translate3d(0, -2px, 0)',
-                boxShadow: '0 4px 12px rgba(4, 165, 107, 0.3)',
-              }}
-            >
-              <Icon as={FaDownload} />
-              View my resume
-            </Link>
-          </Box>
         </VStack>
       </VStack>
     </Box>
