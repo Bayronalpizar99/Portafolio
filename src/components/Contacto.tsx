@@ -113,9 +113,9 @@ export const Contacto = () => {
           <VStack textAlign="center" spacing={6}>
             <Heading 
               as="h2" 
-              size="3xl"
+              fontSize={{ base: "3xl", md: "4xl" }}
               color="brand.text"
-              sx={{ fontFamily: '"Space Grotesk", system-ui, sans-serif', fontWeight: '800' }}
+              sx={{ fontFamily: '"Syne", "Space Grotesk", sans-serif', fontWeight: '700' }}
             >
               Contact Me
             </Heading>
