@@ -1,79 +1,93 @@
-import { Flex, HStack, Box, VStack, IconButton, useDisclosure, Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody, DrawerCloseButton, useBreakpointValue, Avatar } from "@chakra-ui/react";
+import {
+  Flex, HStack, Box, VStack, IconButton, useDisclosure,
+  Drawer, DrawerOverlay, DrawerContent, DrawerHeader, DrawerBody, DrawerCloseButton,
+  useBreakpointValue, Avatar, Text
+} from "@chakra-ui/react";
 import { Link } from 'react-scroll';
 import { keyframes } from "@emotion/react";
 import { HamburgerIcon } from "@chakra-ui/icons";
 import icon from '../assets/icon.ico';
 
-const spaceGroteskStyle = {
-  fontFamily: '"Space Grotesk", system-ui, sans-serif',
-  fontOpticalSizing: 'auto',
-  fontWeight: '700', 
-  fontStyle: 'normal',
-};
-
 const spinRing = keyframes`
   to { transform: rotate(360deg); }
 `;
+
+const navItems = [
+  { to: "sobre-mi", label: "About", num: "01" },
+  { to: "experiencia", label: "Experience", num: "02" },
+  { to: "tecnologias", label: "Technologies", num: "03" },
+  { to: "proyectos", label: "Projects", num: "04" },
+  { to: "certificaciones", label: "Certifications", num: "05" },
+  { to: "contacto", label: "Contact", num: "06" },
+];
 
 export const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const isMobile = useBreakpointValue({ base: true, md: false });
 
-  const linkStyles = {
-    color: "#ffffff", 
-    fontWeight: "600", 
-    cursor: "pointer",
-    position: "relative" as const,
-    zIndex: 2,
-    opacity: 1, 
-  };
-
-  const createEntryAnimation = (delay: number) => ({
-    animation: `slideInFromTop 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) ${delay}s both`,
-  });
-
-  const navLinkHoverEffect = {
-    position: "relative" as const,
-    _after: {
-      content: '""',
-      position: 'absolute',
-      width: '100%',
-      transform: 'scaleX(0)',
-      height: '2px',
-      bottom: '-4px',
-      left: 0,
-      backgroundColor: 'brand.primary',
-      transformOrigin: 'bottom right',
-      transition: 'transform 0.25s ease-out',
-      zIndex: -1, 
-    },
-    _hover: {
-      _after: {
-        transform: 'scaleX(1)',
-        transformOrigin: 'bottom left',
-      },
-    },
-  };
-
-  const NavLink = ({ to, children, delay = 0 }: { to: string; children: React.ReactNode; delay?: number }) => (
-    <Box 
-      as="span" 
-      position="relative" 
+  const NavLink = ({ to, children, delay = 0, num }: { to: string; children: React.ReactNode; delay?: number; num?: string }) => (
+    <Box
+      as="span"
+      position="relative"
+      role="group"
       sx={{
-        ...navLinkHoverEffect,
-        ...(!isMobile && createEntryAnimation(delay)),
+        ...(!isMobile && {
+          animation: `slideInFromTop 0.7s cubic-bezier(0.16, 1, 0.3, 1) ${delay}s both`,
+        }),
+        _after: {
+          content: '""',
+          position: 'absolute',
+          width: '0%',
+          height: '2px',
+          bottom: '-6px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          background: 'linear-gradient(90deg, transparent, #04a56b, transparent)',
+          transition: 'width 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+        },
+        _hover: {
+          _after: {
+            width: '120%',
+          },
+        },
       }}
     >
-      <Link 
-        to={to} 
-        smooth={true} 
-        duration={500} 
-        style={linkStyles} 
-        containerId="main-content" 
+      <Link
+        to={to}
+        smooth={true}
+        duration={500}
+        containerId="main-content"
         offset={-80}
         onClick={isMobile ? onClose : undefined}
+        style={{ cursor: "pointer", display: "inline-flex", alignItems: "baseline", gap: "6px" }}
       >
-        {children}
+        {num && !isMobile && (
+          <Text
+            as="span"
+            fontSize="10px"
+            fontFamily='"Space Grotesk", sans-serif'
+            color="#04a56b"
+            fontWeight="500"
+            opacity={0.7}
+            transition="opacity 0.2s ease"
+            _groupHover={{ opacity: 1 }}
+          >
+            {num}
+          </Text>
+        )}
+        <Text
+          as="span"
+          fontSize="13px"
+          fontFamily='"Space Grotesk", sans-serif'
+          fontWeight="500"
+          color="#e9eef1"
+          letterSpacing="0.5px"
+          textTransform="uppercase"
+          transition="color 0.2s ease"
+          _groupHover={{ color: "#04a56b" }}
+        >
+          {children}
+        </Text>
       </Link>
     </Box>
   );
@@ -84,72 +98,83 @@ export const Navbar = () => {
         as="nav"
         align="center"
         justify="space-between"
-        paddingY={4}
-        paddingX={{ base: 4, md: 8 }}
-        bg="rgba(1, 15, 24, 0.8)" 
+        py={3}
+        px={{ base: 5, md: 10 }}
+        bg="rgba(1, 15, 24, 0.7)"
         position="fixed"
-        sx={{ backdropFilter: 'blur(10px)' }} 
+        sx={{ backdropFilter: 'blur(20px) saturate(1.5)' }}
         width="100%"
-        zIndex={1000} 
-        boxShadow="0px 4px 20px -7px #04a56b"
+        zIndex={1000}
         right="0"
         left="0"
         maxWidth="calc(100% - 8px)"
+        borderBottom="1px solid rgba(4, 165, 107, 0.08)"
+        boxShadow="0px 4px 20px -7px rgba(4, 165, 107, 0.65)"
       >
-        <Box
-          position="relative"
-          display="inline-flex"
-          alignItems="center"
-          justifyContent="center"
-          transition="transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)"
-          _hover={{ transform: 'scale(1.1)' }}
-          cursor="pointer"
-        >
-          {/* Blurred outer glow */}
+        {/* Logo */}
+        <HStack spacing={3}>
           <Box
-            position="absolute"
-            inset="-3px"
-            borderRadius="full"
-            sx={{
-              background: 'conic-gradient(from 0deg, transparent 0deg, #04a56b 70deg, #05c280 140deg, #02d68f 180deg, transparent 230deg)',
-              animation: `${spinRing} 2.5s linear infinite`,
-            }}
-            filter="blur(5px)"
-            opacity={0.8}
-            zIndex={0}
-          />
-          {/* Sharp ring */}
-          <Box
-            position="absolute"
-            inset="-2px"
-            borderRadius="full"
-            sx={{
-              background: 'conic-gradient(from 0deg, transparent 0deg, #04a56b 70deg, #05c280 140deg, #02d68f 180deg, transparent 230deg)',
-              animation: `${spinRing} 2.5s linear infinite`,
-            }}
-            zIndex={0}
-          />
-          <Avatar
-            src={icon}
-            name="Bayron AQ"
-            size="md"
-            border="2px solid #010f18"
             position="relative"
-            zIndex={1}
-          />
-        </Box>
-
-        {/* Desktop Navigation */}
-        <HStack spacing={8} display={{ base: "none", md: "flex" }}>
-          <NavLink to="sobre-mi" delay={0.2}>About me</NavLink>
-          <NavLink to="experiencia" delay={0.3}>Experience</NavLink>
-          <NavLink to="tecnologias" delay={0.4}>Technologies</NavLink>
-          <NavLink to="proyectos" delay={0.6}>Projects</NavLink>
-          <NavLink to="certificaciones" delay={0.8}>Certifications</NavLink>
-          <NavLink to="contacto" delay={1.0}>Contact</NavLink>
+            display="inline-flex"
+            alignItems="center"
+            justifyContent="center"
+            transition="transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)"
+            _hover={{ transform: 'scale(1.08)' }}
+            cursor="pointer"
+          >
+            <Box
+              position="absolute"
+              inset="-3px"
+              borderRadius="full"
+              sx={{
+                background: 'conic-gradient(from 0deg, transparent 0deg, #04a56b 70deg, #05c280 140deg, #02d68f 180deg, transparent 230deg)',
+                animation: `${spinRing} 3s linear infinite`,
+              }}
+              filter="blur(4px)"
+              opacity={0.6}
+              zIndex={0}
+            />
+            <Box
+              position="absolute"
+              inset="-2px"
+              borderRadius="full"
+              sx={{
+                background: 'conic-gradient(from 0deg, transparent 0deg, #04a56b 70deg, #05c280 140deg, #02d68f 180deg, transparent 230deg)',
+                animation: `${spinRing} 3s linear infinite`,
+              }}
+              zIndex={0}
+            />
+            <Avatar
+              src={icon}
+              name="Bayron AQ"
+              size="sm"
+              border="2px solid #010f18"
+              position="relative"
+              zIndex={1}
+            />
+          </Box>
+          <Text
+            display={{ base: "none", lg: "block" }}
+            fontFamily='"Space Grotesk", sans-serif'
+            fontWeight="600"
+            fontSize="sm"
+            color="#e9eef1"
+            letterSpacing="0.3px"
+          >
+            Bayron AQ
+          </Text>
         </HStack>
 
-        {/* Mobile Hamburger Button */}
+        {/* Desktop Navigation */}
+        <HStack spacing={7} display={{ base: "none", md: "flex" }}>
+          {navItems.map((item, i) => (
+            <NavLink key={item.to} to={item.to} delay={0.15 + i * 0.08} num={item.num}>
+              {item.label}
+            </NavLink>
+          ))}
+        </HStack>
+
+        {/* Mobile Hamburger */}
         <IconButton
           display={{ base: "flex", md: "none" }}
           aria-label="Open menu"
@@ -157,104 +182,69 @@ export const Navbar = () => {
           onClick={onOpen}
           variant="ghost"
           color="white"
-          fontSize="20px"
+          fontSize="18px"
+          size="sm"
           _hover={{
-            bg: "rgba(4, 165, 107, 0.2)",
+            bg: "rgba(4, 165, 107, 0.12)",
             color: "brand.primary"
           }}
         />
       </Flex>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer */}
       <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="xs">
-        <DrawerOverlay bg="rgba(0, 0, 0, 0.8)" />
-        <DrawerContent 
-          bg="rgba(1, 15, 24, 0.95)" 
-          backdropFilter="blur(20px)"
-          borderLeft="1px solid rgba(4, 165, 107, 0.3)"
+        <DrawerOverlay bg="rgba(0, 0, 0, 0.85)" sx={{ backdropFilter: 'blur(4px)' }} />
+        <DrawerContent
+          bg="rgba(1, 15, 24, 0.97)"
+          backdropFilter="blur(30px)"
+          borderLeft="1px solid rgba(4, 165, 107, 0.15)"
         >
-          <DrawerCloseButton 
-            color="white" 
-            _hover={{ 
-              bg: "rgba(4, 165, 107, 0.2)",
-              color: "brand.primary" 
+          <DrawerCloseButton
+            color="white"
+            size="sm"
+            _hover={{
+              bg: "rgba(4, 165, 107, 0.15)",
+              color: "brand.primary"
             }}
           />
-          <DrawerHeader 
-            color="brand.text" 
-            fontSize="xl" 
-            fontFamily={spaceGroteskStyle.fontFamily}
+          <DrawerHeader
+            color="brand.text"
+            fontSize="sm"
+            fontFamily='"Space Grotesk", sans-serif'
+            textTransform="uppercase"
+            letterSpacing="2px"
+            pt={8}
           >
-            Navigation
+            Menu
           </DrawerHeader>
 
           <DrawerBody>
-            <VStack spacing={6} align="stretch" pt={4}>
-              <Box 
-                fontSize="lg" 
-                py={3}
-                px={2}
-                borderRadius="md"
-                _hover={{ bg: "rgba(4, 165, 107, 0.1)" }}
-                transition="all 0.2s ease"
-              >
-                <NavLink to="sobre-mi">About me</NavLink>
-              </Box>
-
-              <Box
-                fontSize="lg"
-                py={3}
-                px={2}
-                borderRadius="md"
-                _hover={{ bg: "rgba(4, 165, 107, 0.1)" }}
-                transition="all 0.2s ease"
-              >
-                <NavLink to="experiencia">Experience</NavLink>
-              </Box>
-              
-              <Box 
-                fontSize="lg" 
-                py={3}
-                px={2}
-                borderRadius="md"
-                _hover={{ bg: "rgba(4, 165, 107, 0.1)" }}
-                transition="all 0.2s ease"
-              >
-                <NavLink to="tecnologias">Technologies</NavLink>
-              </Box>
-              
-              <Box 
-                fontSize="lg" 
-                py={3}
-                px={2}
-                borderRadius="md"
-                _hover={{ bg: "rgba(4, 165, 107, 0.1)" }}
-                transition="all 0.2s ease"
-              >
-                <NavLink to="proyectos">Projects</NavLink>
-              </Box>
-              
-              <Box 
-                fontSize="lg" 
-                py={3}
-                px={2}
-                borderRadius="md"
-                _hover={{ bg: "rgba(4, 165, 107, 0.1)" }}
-                transition="all 0.2s ease"
-              >
-                <NavLink to="certificaciones">Certifications</NavLink>
-              </Box>
-              
-              <Box 
-                fontSize="lg" 
-                py={3}
-                px={2}
-                borderRadius="md"
-                _hover={{ bg: "rgba(4, 165, 107, 0.1)" }}
-                transition="all 0.2s ease"
-              >
-                <NavLink to="contacto">Contact</NavLink>
-              </Box>
+            <VStack spacing={1} align="stretch" pt={4}>
+              {navItems.map((item) => (
+                <Box
+                  key={item.to}
+                  py={4}
+                  px={4}
+                  borderRadius="lg"
+                  _hover={{ bg: "rgba(4, 165, 107, 0.08)" }}
+                  transition="all 0.2s ease"
+                  borderLeft="2px solid transparent"
+                  _active={{ borderLeftColor: "#04a56b" }}
+                >
+                  <HStack spacing={3}>
+                    <Text
+                      fontSize="xs"
+                      fontFamily='"Space Grotesk", sans-serif'
+                      color="#04a56b"
+                      fontWeight="500"
+                      opacity={0.6}
+                    >
+                      {item.num}
+                    </Text>
+                    <NavLink to={item.to}>{item.label}</NavLink>
+                  </HStack>
+                </Box>
+              ))}
             </VStack>
           </DrawerBody>
         </DrawerContent>
