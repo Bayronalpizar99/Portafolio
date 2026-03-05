@@ -135,10 +135,10 @@ export const Tecnologias = () => {
       >
         <Heading
           as="h2"
-          size="2xl"
+          fontSize={{ base: "3xl", md: "4xl" }}
           color="brand.text"
           sx={{
-            fontFamily: '"Space Grotesk", system-ui, sans-serif',
+            fontFamily: '"Syne", "Space Grotesk", sans-serif',
             fontWeight: '700',
           }}
           
