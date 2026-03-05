@@ -108,13 +108,13 @@ export const Certificaciones = () => {
       <VStack spacing={12} maxWidth="800px" width="100%">
         <Heading
           as="h2"
-          size="2xl"
+          fontSize={{ base: "3xl", md: "4xl" }}
           color="brand.text"
           opacity={inView ? 1 : 0}
           transform={inView ? 'translateY(0)' : 'translateY(20px)'}
           transition="all 0.6s ease-out"
           sx={{
-            fontFamily: '"Space Grotesk", system-ui, sans-serif',
+            fontFamily: '"Syne", "Space Grotesk", sans-serif',
             fontWeight: '700',
           }}
         >
